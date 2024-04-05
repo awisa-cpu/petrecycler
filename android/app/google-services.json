@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1011401755857",
+    "project_id": "petrecycler-d8be8",
+    "storage_bucket": "petrecycler-d8be8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011401755857:android:feac07aa1100ed3ba709f0",
+        "android_client_info": {
+          "package_name": "com.example.petrecycler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011401755857-vdlo4efv1ru1s3095pejk7nth5740q2n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.petrecycler",
+            "certificate_hash": "e066381e191e88f778a9c67315afcf2db258d7f7"
+          }
+        },
+        {
+          "client_id": "1011401755857-9kb8jd7i5fg7q0nbr49mkncnkh6gjo61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjgNmZBHf9qSb6g1LPnaez4YIl3HVvQFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011401755857-9kb8jd7i5fg7q0nbr49mkncnkh6gjo61.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1011401755857-ajr103i5imji24ol5m5onhitefbjgjgv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.petrecycler"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
