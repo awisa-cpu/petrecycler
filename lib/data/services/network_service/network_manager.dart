@@ -22,7 +22,8 @@ class NetWorkManager extends GetxController {
 
   void checkConnectivity(List<ConnectivityResult> result) {
     if (result.any((element) => element == ConnectivityResult.none)) {
-      CustomSnackBars.showInforSnackBar('Oh snap', 'No internet connection');
+      CustomSnackBars.showInforSnackBar(
+          title: 'Oh snap', message: 'No internet connection');
     }
   }
 
@@ -36,11 +37,9 @@ class NetWorkManager extends GetxController {
     }
   }
 
-@override
+  @override
   void onClose() {
     super.onClose();
     onConnectivityChanged.cancel();
-    
   }
-
 }

@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
 import 'package:petrecycler/data/repositories/users_repo/user_repository.dart';
 import 'package:petrecycler/data/services/network_service/network_manager.dart';
-import 'package:petrecycler/features/autentication/views/sign_in/sign_in.dart';
+import 'package:petrecycler/features/autentication/views/sign_up/sign_up_user.dart';
+import 'package:petrecycler/features/autentication/views/sign_up/sign_up_recycler.dart';
 import 'package:petrecycler/features/navigations/admin_navigation_menu.dart';
 import 'package:petrecycler/features/navigations/user_navigation_menu.dart';
 import 'package:petrecycler/utilities/constants/images_texts.dart';
@@ -19,6 +20,8 @@ class SignInController extends GetxController {
   final userRepo = Get.put(UserRepository());
   final RxBool rememberMe = false.obs;
   final RxBool showPassword = false.obs;
+  final RxBool showUser = false.obs;
+  final RxBool showAdmin = false.obs;
   late final TextEditingController email;
   late final TextEditingController password;
   final GlobalKey<FormState> signInFormKey = GlobalKey<FormState>();
@@ -36,6 +39,29 @@ class SignInController extends GetxController {
     rememberMe.value = value!;
   }
 
+  void onShowUser(bool? value) {
+    if (!showAdmin.value) {
+      showUser.value = value!;
+    }
+  }
+
+  void onShowAdmin(bool? value) {
+    if (!showUser.value) {
+      showAdmin.value = value!;
+    }
+  }
+
+  void continueUserRegistration() {
+    if (showUser.value) {
+      Get.to(() => const SignUpUserView());
+    } else if (showAdmin.value) {
+      Get.to(() => const SignUpRecyclerView());
+    } else {
+      CustomSnackBars.showInforSnackBar(
+          title: 'Information', message: 'Please kindly tick as appropriate');
+    }
+  }
+
   //
   void shouldShowPassword() {
     showPassword.value = !showPassword.value;
@@ -46,7 +72,7 @@ class SignInController extends GetxController {
       //display a loader
       CApploader.showLoader(
         'Login in progress...',
-        CImages.loader,
+        CImages.docerAnimation,
       );
 
       //check internet connectivity
@@ -68,7 +94,6 @@ class SignInController extends GetxController {
         password: password.text.trim(),
       );
 
-
       //once logged in, fetch the user
       final user = await userRepo.getUser();
 
@@ -77,28 +102,29 @@ class SignInController extends GetxController {
 
       //show success snack message
       CustomSnackBars.showSuccessSnackBar(
-        "Congratulations",
-        "${user.userType} logged in succefully",
+        title: "Congratulations",
+        message: "${user.userRole} logged in succefully",
       );
 
       //authorize based on roles
-      if (user.userType == 'admin') {
+      if (user.userRole == 'admin') {
         Get.offAll(() => const AdminNavigationMenu());
-      } else if (user.userType == 'user') {
+      } else if (user.userRole == 'user') {
         Get.offAll(() => const UserNavigationMenu());
       }
     } catch (e) {
       CApploader.stopLoader();
-      CustomSnackBars.showErrorSnackBar("Oh Snap", e.toString());
+      CustomSnackBars.showErrorSnackBar(
+          title: "Oh Snap", message: e.toString());
     }
   }
 
   void logoutUser() async {
     try {
       await authRepo.signOutUser();
-      Get.offAll(() => const SignInView());
     } catch (e) {
-      CustomSnackBars.showErrorSnackBar("Oh Snap", e.toString());
+      CustomSnackBars.showErrorSnackBar(
+          title: "Oh Snap", message: e.toString());
     }
   }
 }

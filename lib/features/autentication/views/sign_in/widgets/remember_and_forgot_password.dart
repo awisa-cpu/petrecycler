@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/features/autentication/controllers/sign_in_controller.dart';
 import 'package:petrecycler/features/autentication/views/sign_in/forgot_password.dart';
+import 'package:petrecycler/utilities/constants/texts.dart';
+
+import '../../../../../common/widgets/custom_check_box_with_text.dart';
 
 class RememberAndForgotPassword extends StatelessWidget {
   const RememberAndForgotPassword({
@@ -17,27 +20,12 @@ class RememberAndForgotPassword extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         //remember me
-        Row(
-          children: [
-            //
-            Obx(
-              () => SizedBox(
-                height: 10,
-                width: 21,
-                child: Checkbox(
-                  value: controller.rememberMe.value,
-                  onChanged: controller.onRememberMeChanged,
-                ),
-              ),
-            ),
-
-            const SizedBox(width: 5),
-
-            Text(
-              'Remember me',
-              style: Theme.of(context).textTheme.bodyMedium,
-            )
-          ],
+        Obx(
+          () => CustomCheckBoxWithText(
+            value: controller.rememberMe.value,
+            onValueChange: controller.onRememberMeChanged,
+            text: CTexts.rememberMe,
+          ),
         ),
 
         //forgot password

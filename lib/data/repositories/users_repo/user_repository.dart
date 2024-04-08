@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
-import 'package:petrecycler/features/autentication/model/auth_user_model.dart';
+import 'package:petrecycler/features/autentication/model/user_model.dart';
 import 'package:petrecycler/utilities/exceptions/custom_firebase_auth_exceptions.dart';
 import 'package:petrecycler/utilities/exceptions/custom_firebase_exceptions.dart';
 import 'package:petrecycler/utilities/exceptions/format_exceptions.dart';
@@ -14,9 +14,8 @@ class UserRepository extends GetxController {
   final _db = FirebaseFirestore.instance;
   final authRepo = Get.put(AuthRepository());
 
- 
   //create a user
-  Future<void> createUser(AuthUserModel user) async {
+  Future<void> createUser(UserModel user) async {
     try {
       await _db
           .collection('Users')
@@ -34,15 +33,15 @@ class UserRepository extends GetxController {
   }
 
   //fetch a user
-  Future<AuthUserModel> getUser() async {
+  Future<UserModel> getUser() async {
     try {
       final docSnapshot =
           await _db.collection('Users').doc(authRepo.authUser!.uid).get();
 
       if (docSnapshot.exists) {
-        return AuthUserModel.fromFirestoreDb(docSnapshot);
+        return UserModel.fromFirestoreDb(docSnapshot);
       } else {
-        return AuthUserModel.empty();
+        return UserModel.empty();
       }
     } on CustomFirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
@@ -56,12 +55,12 @@ class UserRepository extends GetxController {
   }
 
 //fetch all users
-  Future<List<AuthUserModel>> getAllUsers() async {
+  Future<List<UserModel>> getAllUsers() async {
     try {
       final querySnapshot = await _db.collection('Users').get();
 
       final docs = querySnapshot.docs;
-      return docs.map((doc) => AuthUserModel.fromFirestoreDb(doc)).toList();
+      return docs.map((doc) => UserModel.fromFirestoreDb(doc)).toList();
     } on CustomFirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
     } on CustomFirebaseAuthExc catch (e) {
@@ -74,7 +73,7 @@ class UserRepository extends GetxController {
   }
 
   //udate user record
-  Future<void> updateUserRecord(AuthUserModel user) async {
+  Future<void> updateUserRecord(UserModel user) async {
     try {
       await _db
           .collection('Users')
@@ -107,7 +106,7 @@ class UserRepository extends GetxController {
   }
 
   //delete a user
-  Future<void> deleteUser(AuthUserModel user) async {
+  Future<void> deleteUser(UserModel user) async {
     try {
       await _db.collection('Users').doc(authRepo.authUser!.uid).delete();
     } on CustomFirebaseException catch (e) {

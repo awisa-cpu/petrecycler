@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/common/widgets/custom_e_button.dart';
 import 'package:petrecycler/features/autentication/controllers/sign_in_controller.dart';
-import 'package:petrecycler/features/autentication/views/sign_up/sign_up.dart';
+import 'package:petrecycler/features/autentication/views/sign_up/user_type_decider_view.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
 import 'package:petrecycler/utilities/constants/images_texts.dart';
@@ -86,7 +86,7 @@ class SignInForm extends StatelessWidget {
             firstText: CTexts.noAccount,
             secondText: CTexts.createAccount,
             onPressed: () => Get.to(
-              () => const SignUpView(),
+              () => const UserTypeDeciderView(),
             ),
           ),
         ],

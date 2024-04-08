@@ -5,30 +5,48 @@ import 'package:petrecycler/utilities/constants/sizes.dart';
 
 class CApploader {
   //show loader
-  static Widget showLoader(String loadingMessage, String loadingImage) {
-    return Container(
-      width: MediaQuery.of(Get.context!).size.width,
-      height: MediaQuery.of(Get.context!).size.height,
-      color: Colors.white,
-      child: PopScope(
+  static void showLoader(String loadingMessage, String loadingImage) async {
+    return await showDialog(
+      barrierDismissible: false,
+      context: Get.context!,
+      builder: (
+        context,
+      ) =>
+          PopScope(
         canPop: false,
-        child: Column(
-          children: [
-            //loader
-            LottieBuilder.asset(loadingImage),
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.white,
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(height: 200),
 
-            const SizedBox(height: CSizes.lg),
+                //loader
+                LottieBuilder.asset(
+                  loadingImage,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                ),
 
-            //text
-            Text(loadingMessage)
-          ],
+                const SizedBox(height: CSizes.lg),
+
+                //text
+                Text(
+                  loadingMessage,
+                  style: Theme.of(Get.context!).textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
   //stop loader
-  static stopLoader() {
-    Navigator.pop(Get.context!);
+  static void stopLoader() {
+    Navigator.pop(Get.overlayContext!);
   }
 }

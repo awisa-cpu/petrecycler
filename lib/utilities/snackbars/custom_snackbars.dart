@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class CustomSnackBars {
 //error snackbar
-  static showErrorSnackBar(String title, String message) {
+  static showErrorSnackBar({required String title, required  String message}) {
     Get.snackbar(
       title,
       message,
@@ -14,7 +14,7 @@ class CustomSnackBars {
   }
 
 //success snackbar
-  static showSuccessSnackBar(String title, String message) {
+  static showSuccessSnackBar({required  title, required String message}) {
     Get.snackbar(
       title,
       message,
@@ -25,7 +25,7 @@ class CustomSnackBars {
   }
 
 //info snack bar
-  static showInforSnackBar(String title, String message) {
+  static showInforSnackBar({required String title, required String message}) {
     Get.snackbar(
       title,
       message,

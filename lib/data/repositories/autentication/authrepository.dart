@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -5,7 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:petrecycler/features/autentication/views/onboarding/onboarding.dart';
 import 'package:petrecycler/features/autentication/views/sign_in/sign_in.dart';
-
+import 'package:petrecycler/features/autentication/views/sign_up/verify_email.dart';
 import 'package:petrecycler/utilities/exceptions/custom_firebase_auth_exceptions.dart';
 import 'package:petrecycler/utilities/exceptions/custom_firebase_exceptions.dart';
 import 'package:petrecycler/utilities/exceptions/format_exceptions.dart';
@@ -17,7 +20,6 @@ class AuthRepository extends GetxController {
   //variables
   final _auth = FirebaseAuth.instance;
   final storageBucket = GetStorage();
-  // final userRepo = Get.put(UserRepository());
 
   ///methods
 
@@ -33,9 +35,9 @@ class AuthRepository extends GetxController {
     if (user != null) {
       //then check if email is verified
       if (user.emailVerified) {
-        //authorize based on roles
+        Get.offAll(() => const SignInView());
       } else {
-        Get.off(() => const SignInView());
+        Get.off(() => const VerifyEmailScreen());
       }
     } else {
       //check if this is the first time of the user
@@ -106,6 +108,10 @@ class AuthRepository extends GetxController {
       throw CustomPlatformException(e.code).message;
     } on CustomFormatException catch (_) {
       throw const CustomFormatException();
+    } on SocketException catch (e) {
+      throw "Error connecting to the network ${e.message}";
+    } on TimeoutException catch (e) {
+      throw 'Request timed out ${e.message}';
     }
   }
 
@@ -114,6 +120,7 @@ class AuthRepository extends GetxController {
     try {
       if (authUser != null) {
         await _auth.signOut();
+        Get.offAll(() => const SignInView());
       }
     } on CustomFirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
