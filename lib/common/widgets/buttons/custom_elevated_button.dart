@@ -33,7 +33,9 @@ class CustomEButton extends StatelessWidget {
                   )
                 ],
               )
-            : Text(text),
+            : Text(
+                text,
+              ),
       ),
     );
   }

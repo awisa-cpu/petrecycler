@@ -36,6 +36,7 @@ class CustomBottleProgressReport extends StatelessWidget {
                 const LinearProgressIndicator(
                   color: CColors.primary,
                   value: 0.4,
+                  minHeight: 6,
                 )
               ],
             ),

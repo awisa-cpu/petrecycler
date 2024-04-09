@@ -34,4 +34,7 @@ class CTexts {
 static const String resendEmail = "Resend Email";
   static const String resendEmailIn = "Resend email in";
 
+  //
+  static const String recycleInstructions =  'You dont have to dispose off your pet bottles anyhow anymore, why dont you join the movement let us make our environment free of trash as possible as we can. Follow these instructions to book a pick up reuest.';
+
 }

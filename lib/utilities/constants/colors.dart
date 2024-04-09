@@ -6,7 +6,7 @@ class CColors {
 //App Basic Colors
   static const Color mainColor = Color(0xFF69C0DC);
   static const Color primary = Color(0xFF4C8FA5);
-  static const Color secondary = Color(0xFFFFE24B);
+  static const Color mainColor2 = Color(0xFF1E1E1E);
 
 //Text Colors
   static const Color textPrimary = Color(0xFF333333);

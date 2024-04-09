@@ -44,7 +44,7 @@ class CustomHomeSlider extends StatelessWidget {
                   margin: const EdgeInsets.only(right: 10),
                   backgroundColor: controller.sliderValue.value == i
                       ? CColors.primary
-                      : Colors.grey,
+                      : Colors.grey.withOpacity(0.2),
                 ),
             ],
           ),

@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:petrecycler/features/dashbaords/user_dashboard/views/bookings_view.dart';
+import 'package:petrecycler/features/dashbaords/user_dashboard/views/user_request/user_request_view.dart';
 import 'package:petrecycler/features/mapping/views/user_map_view.dart';
 import 'package:petrecycler/features/personalization/user_personalization/views/user_settings/user_settings_view.dart';
 import 'package:petrecycler/features/dashbaords/user_dashboard/views/user_home/user_home_view.dart';
@@ -24,8 +24,8 @@ class UserNavigationMenu extends StatelessWidget {
           backgroundColor: Colors.white,
           color: CColors.mainColor,
           index: controller.selectedIndex.value,
-          animationCurve: Curves.elasticIn,
-          animationDuration: const Duration(milliseconds: 280),
+          animationCurve: Curves.bounceIn,
+          animationDuration: const Duration(milliseconds: 200),
           onTap: controller.onDestinationSelected,
           items: const [
             CustomNavIcon(
@@ -66,7 +66,7 @@ class NavigationController extends GetxController {
       case 1:
         return const UserMapView();
       case 2:
-        return const BookingsView();
+        return const UserRequestView();
       case 3:
         return const UserSettingsView();
       default:

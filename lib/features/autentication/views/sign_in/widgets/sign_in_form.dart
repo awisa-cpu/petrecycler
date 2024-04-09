@@ -6,6 +6,7 @@ import 'package:petrecycler/features/autentication/views/sign_up/user_type_decid
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
 import 'package:petrecycler/utilities/constants/images_texts.dart';
+import 'package:petrecycler/utilities/validators/validators.dart';
 
 import 'no_account_create.dart';
 import 'remember_and_forgot_password.dart';
@@ -28,6 +29,7 @@ class SignInForm extends StatelessWidget {
         children: [
           //email
           TextFormField(
+            validator: CValidators.validateEmail,
             controller: controller.email,
             decoration: const InputDecoration(
               labelText: CTexts.email,
@@ -41,6 +43,7 @@ class SignInForm extends StatelessWidget {
           //password
           Obx(
             () => TextFormField(
+              validator: CValidators.validatePassword,
               controller: controller.password,
               decoration: InputDecoration(
                 labelText: CTexts.password,

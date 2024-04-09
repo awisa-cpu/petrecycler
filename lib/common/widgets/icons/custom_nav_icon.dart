@@ -11,7 +11,7 @@ class CustomNavIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Icon(
       icon,
-      color: Colors.white,
+      color: Colors.black,
       size: 26,
     );
   }

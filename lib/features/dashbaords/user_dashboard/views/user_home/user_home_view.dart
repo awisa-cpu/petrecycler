@@ -7,7 +7,7 @@ import 'package:petrecycler/utilities/constants/images_texts.dart';
 import 'widgets/custom_bottle_progress_report.dart';
 import 'widgets/custom_home_slider.dart';
 import 'widgets/custom_recent_activites.dart';
-import 'widgets/user_home_view.dart';
+import 'widgets/custom_notification_view.dart';
 
 class UserHomeView extends StatelessWidget {
   const UserHomeView({super.key});
@@ -17,9 +17,10 @@ class UserHomeView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          
           backgroundColor: Colors.transparent,
           leading: const CircleAvatar(
-            backgroundImage: AssetImage(CImages.profile),
+            backgroundImage: AssetImage(CImages.userProfile),
             radius: 25,
           ),
           title: Column(
