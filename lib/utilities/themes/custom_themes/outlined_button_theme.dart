@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petrecycler/utilities/constants/colors.dart';
 
 class COutlinedButtonTheme {
   COutlinedButtonTheme._();
@@ -10,7 +11,7 @@ class COutlinedButtonTheme {
       enableFeedback: false,
       elevation: 0,
       foregroundColor: Colors.black,
-      side: BorderSide(color: Colors.blue[300]!),
+      side: const BorderSide(color: CColors.mainColor),
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       textStyle: const TextStyle(
           fontSize: 16.0, color: Colors.black, fontWeight: FontWeight.w600),

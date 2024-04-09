@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/features/autentication/controllers/sign_in_controller.dart';
 import 'package:petrecycler/features/autentication/views/sign_in/forgot_password.dart';
+import 'package:petrecycler/utilities/constants/colors.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
 
 import '../../../../../common/widgets/custom_check_box_with_text.dart';
@@ -30,14 +31,13 @@ class RememberAndForgotPassword extends StatelessWidget {
 
         //forgot password
         TextButton(
-          style: const ButtonStyle(enableFeedback: false),
-          onPressed: () => Get.to(() => const ForgotPasswordView()),
+          onPressed: () => Get.to(() => const ForgotPasswordView(text: 'Password Reset',)),
           child: Text(
             'Forgot Password?',
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
-                .apply(color: Colors.blue[300]),
+                .apply(color: CColors.mainColor),
           ),
         )
       ],

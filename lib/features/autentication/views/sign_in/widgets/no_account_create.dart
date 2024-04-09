@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petrecycler/utilities/constants/colors.dart';
 
 class NoAccountCreate extends StatelessWidget {
   const NoAccountCreate({
@@ -28,7 +29,7 @@ class NoAccountCreate extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge!
-                  .apply(color: Colors.blue[300])),
+                  .apply(color: CColors.mainColor)),
         )
       ],
     );

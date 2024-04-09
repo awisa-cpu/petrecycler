@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart';
 import 'package:petrecycler/common/widgets/custom_check_box_with_text.dart';
-import 'package:petrecycler/common/widgets/custom_e_button.dart';
+import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/features/autentication/controllers/sign_in_controller.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
@@ -51,6 +51,7 @@ class UserTypeDeciderView extends StatelessWidget {
             const SizedBox(height: CSizes.lg + 15),
 
             CustomEButton(
+              addIcon: false,
               onPressed: controller.continueUserRegistration,
               text: CTexts.continueWithRegistration,
             ),

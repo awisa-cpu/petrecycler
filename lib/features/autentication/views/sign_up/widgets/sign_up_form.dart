@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:petrecycler/common/widgets/custom_e_button.dart';
+import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/features/autentication/controllers/sign_up_controller.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
@@ -191,10 +191,12 @@ class SignUpForm extends StatelessWidget {
               ? CustomEButton(
                   onPressed: () => controller.signUpUser(CTexts.admin),
                   text: CTexts.signUp,
+                  addIcon: false,
                 )
               : CustomEButton(
                   onPressed: () => controller.signUpUser(CTexts.user),
                   text: CTexts.signUp,
+                  addIcon: false,
                 )
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petrecycler/utilities/constants/colors.dart';
 
 class CElevatedButtonTheme {
   CElevatedButtonTheme._();
@@ -9,10 +10,10 @@ class CElevatedButtonTheme {
     enableFeedback: false,
     elevation: 0,
     foregroundColor: Colors.white,
-    backgroundColor: Colors.blue[300],
+    backgroundColor: CColors.mainColor,
     disabledForegroundColor: Colors.grey,
     disabledBackgroundColor: Colors.grey,
-    side: BorderSide(color: Colors.blue[300]!),
+    side: const BorderSide(color: CColors.mainColor),
     padding: const EdgeInsets.symmetric(vertical: 18),
     textStyle: const TextStyle(
       fontSize: 16.0,

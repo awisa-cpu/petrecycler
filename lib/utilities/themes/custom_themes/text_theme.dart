@@ -37,6 +37,10 @@ class CTextTheme {
         fontSize: 12.0,
         fontWeight: FontWeight.normal,
         color: Colors.black.withOpacity(0.5)),
+    labelSmall: const TextStyle().copyWith(
+        fontSize: 8.0,
+        fontWeight: FontWeight.normal,
+        color: Colors.black.withOpacity(0.5)),
   );
 
   //dark text theme

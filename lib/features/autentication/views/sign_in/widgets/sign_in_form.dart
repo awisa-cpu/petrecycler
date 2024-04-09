@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:petrecycler/common/widgets/custom_e_button.dart';
+import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/features/autentication/controllers/sign_in_controller.dart';
 import 'package:petrecycler/features/autentication/views/sign_up/user_type_decider_view.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
@@ -66,7 +66,11 @@ class SignInForm extends StatelessWidget {
 
           const SizedBox(height: CSizes.md - 3),
 
-          CustomEButton(onPressed: controller.loginUser, text: CTexts.signIn),
+          CustomEButton(
+            onPressed: controller.loginUser,
+            text: CTexts.signIn,
+            addIcon: false,
+          ),
 
           const SizedBox(height: CSizes.md),
 

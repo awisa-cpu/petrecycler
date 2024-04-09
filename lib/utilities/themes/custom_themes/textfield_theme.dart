@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petrecycler/utilities/constants/colors.dart';
 
 class CTextFieldTheme {
   CTextFieldTheme._();
@@ -24,7 +25,7 @@ class CTextFieldTheme {
       ),
       focusedBorder: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(14),
-        borderSide:  BorderSide(width: 1, color: Colors.blue[300]!),
+        borderSide: const BorderSide(width: 1, color: CColors.mainColor),
       ),
       errorBorder: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(14),

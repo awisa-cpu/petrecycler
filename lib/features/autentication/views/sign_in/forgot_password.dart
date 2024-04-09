@@ -1,25 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart';
+import 'package:petrecycler/utilities/constants/sizes.dart';
 
 import 'widgets/password_reset_form.dart';
 
 class ForgotPasswordView extends StatelessWidget {
-  const ForgotPasswordView({super.key});
+  const ForgotPasswordView({super.key, required this.text, this.actionText});
+  final String text;
+  final String? actionText;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Password Reset'),
+        title: Text(
+          text,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ),
-      body: const CustomLayoutWithScrollAndPadding(
+      body: CustomLayoutWithScrollAndPadding(
         child: Column(
           children: [
             //
-            Text('Fill in your new password'),
+            Text(
+              'Fill in your new password',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+
+            const SizedBox(height: CSizes.lg),
 
             //
-            PasswordResetForm(),
+            PasswordResetForm(
+              actionText: actionText,
+            ),
           ],
         ),
       ),

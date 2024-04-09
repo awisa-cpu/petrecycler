@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart';
-import 'package:petrecycler/common/widgets/custom_e_button.dart';
+import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
 import 'package:petrecycler/features/autentication/controllers/verify_email_controller.dart';
 import 'package:petrecycler/utilities/constants/images_texts.dart';
@@ -10,7 +10,7 @@ import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
 import 'package:petrecycler/utilities/helper/helper_functions.dart';
 
-import '../../../../common/widgets/custom_text_button.dart';
+import '../../../../common/widgets/buttons/custom_text_button.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
   const VerifyEmailScreen({super.key, this.email});
@@ -25,7 +25,6 @@ class VerifyEmailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(VerifyEmailController());
 
-    
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -74,6 +73,7 @@ class VerifyEmailScreen extends StatelessWidget {
                 () => controller.checkEmailVerificationStatus(),
               ),
               text: CTexts.continu,
+              addIcon: false,
             ),
 
             //

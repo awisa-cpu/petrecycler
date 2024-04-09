@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petrecycler/utilities/constants/colors.dart';
 
 class CCheckBoxTheme {
   CCheckBoxTheme._();
@@ -14,12 +15,10 @@ class CCheckBoxTheme {
         } else {
           return Colors.black;
         }
-      }
-      
-      ),
+      }),
       fillColor: MaterialStateProperty.resolveWith((states) {
         if (states.contains(MaterialState.selected)) {
-          return Colors.blue[300];
+          return CColors.mainColor;
         } else {
           return Colors.transparent;
         }

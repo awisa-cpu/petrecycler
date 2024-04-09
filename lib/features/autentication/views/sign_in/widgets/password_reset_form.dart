@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:petrecycler/common/widgets/custom_e_button.dart';
+import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/features/autentication/controllers/forgot_password_controller.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
 
 class PasswordResetForm extends StatelessWidget {
   const PasswordResetForm({
-    super.key,
+    super.key, this.actionText,
   });
+  final String? actionText;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class PasswordResetForm extends StatelessWidget {
 
           const SizedBox(height: 13),
 
-          CustomEButton(onPressed: () {}, text: 'Reset Password'),
+          CustomEButton(onPressed: () {}, text:actionText?? 'Reset Password',addIcon: false,),
         ],
       ),
     );
