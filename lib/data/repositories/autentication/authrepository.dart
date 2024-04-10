@@ -9,7 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:petrecycler/features/autentication/views/onboarding/onboarding.dart';
 import 'package:petrecycler/features/autentication/views/sign_in/sign_in.dart';
 import 'package:petrecycler/features/autentication/views/sign_up/verify_email.dart';
-import 'package:petrecycler/features/navigations/user_navigation_menu.dart';
+import 'package:petrecycler/features/navigations/admin_navigation_menu.dart';
 import 'package:petrecycler/utilities/exceptions/custom_firebase_auth_exceptions.dart';
 import 'package:petrecycler/utilities/exceptions/custom_firebase_exceptions.dart';
 import 'package:petrecycler/utilities/exceptions/format_exceptions.dart';
@@ -37,7 +37,7 @@ class AuthRepository extends GetxController {
       //then check if email is verified
       if (user.emailVerified) {
         //autorize based on roles :todo
-        Get.offAll(() => const UserNavigationMenu());
+        Get.offAll(() => const AdminNavigationMenu());
       } else {
         Get.off(() => const VerifyEmailScreen());
       }

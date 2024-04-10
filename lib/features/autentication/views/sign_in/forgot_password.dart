@@ -24,7 +24,7 @@ class ForgotPasswordView extends StatelessWidget {
             //
             Text(
               'Fill in your new password',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
 
             const SizedBox(height: CSizes.lg),

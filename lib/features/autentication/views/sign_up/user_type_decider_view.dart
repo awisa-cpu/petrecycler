@@ -5,8 +5,10 @@ import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart
 import 'package:petrecycler/common/widgets/custom_check_box_with_text.dart';
 import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/features/autentication/controllers/sign_in_controller.dart';
+import 'package:petrecycler/utilities/constants/images_texts.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
+import 'package:petrecycler/utilities/device_utility/device_utility.dart';
 
 class UserTypeDeciderView extends StatelessWidget {
   const UserTypeDeciderView({super.key});
@@ -22,7 +24,10 @@ class UserTypeDeciderView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 140),
+            Image(
+              image: const AssetImage(CImages.signAsWho),
+              height: CDeviceUtility.getScreenHeight(context) * 0.40,
+            ),
 
             Text(
               CTexts.registerAsUserOrAdmin,

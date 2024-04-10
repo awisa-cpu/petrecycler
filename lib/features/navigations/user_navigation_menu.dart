@@ -52,7 +52,7 @@ class NavigationController extends GetxController {
   static NavigationController get instance => Get.find();
 
   //varibales
-  RxInt selectedIndex = 2.obs;
+  RxInt selectedIndex = 0.obs;
 
   //methods
   void onDestinationSelected(int index) {

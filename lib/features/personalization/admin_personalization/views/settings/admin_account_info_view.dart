@@ -7,8 +7,8 @@ import 'package:petrecycler/features/personalization/user_personalization/contro
 import 'package:petrecycler/utilities/constants/colors.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 
-class AccountInformationView extends StatelessWidget {
-  const AccountInformationView({super.key});
+class AdminAccountInformationView extends StatelessWidget {
+  const AdminAccountInformationView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class AccountInformationView extends StatelessWidget {
                             ),
                           ),
                           Tab(
-                            child: Text('Personal Data',
+                            child: Text('Company Data',
                                 style: Theme.of(context).textTheme.titleLarge),
                           ),
                         ]),

@@ -16,8 +16,7 @@ void main() async {
 //initialize storage
   await GetStorage.init();
 
-
- // Prevents app from closing splash screen, app layout will be build but not displayed.
+  // Prevents app from closing splash screen, app layout will be build but not displayed.
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await initFirebase();

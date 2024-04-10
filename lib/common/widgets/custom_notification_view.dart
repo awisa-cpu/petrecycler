@@ -17,7 +17,7 @@ class CustomNotificationIcon extends StatelessWidget {
           right: 1,
           top: 0,
           child: CustomRoundedContainer(
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.red,
             width: 17,
             height: 17,
             alignment: Alignment.center,

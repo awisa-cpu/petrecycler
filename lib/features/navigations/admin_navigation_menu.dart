@@ -1,9 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:petrecycler/features/dashbaords/admin_dashboard/views/admin_home_view.dart';
+import 'package:petrecycler/features/dashbaords/admin_dashboard/views/admin_home/admin_home_view.dart';
 import 'package:petrecycler/features/dashbaords/admin_dashboard/views/admin_request_manager_view.dart';
-import 'package:petrecycler/features/dashbaords/admin_dashboard/views/admin_settings_view.dart';
+import 'package:petrecycler/features/personalization/admin_personalization/views/admin_settings/admin_settings_view.dart';
 import 'package:petrecycler/features/mapping/views/admin_map_view.dart';
 import 'package:petrecycler/utilities/constants/colors.dart';
 import '../../common/widgets/icons/custom_nav_icon.dart';
@@ -28,13 +28,13 @@ class AdminNavigationMenu extends StatelessWidget {
           onTap: controller.onDestinationSelected,
           items: const [
             CustomNavIcon(
-              icon: Icons.home,
+              icon: Icons.dashboard,
             ),
             CustomNavIcon(
               icon: Icons.location_on,
             ),
             CustomNavIcon(
-              icon: Icons.request_page,
+              icon: Icons.notifications,
             ),
             CustomNavIcon(
               icon: Icons.person,

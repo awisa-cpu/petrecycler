@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart';
 import 'package:petrecycler/features/dashbaords/user_dashboard/views/notification_view.dart';
+import 'package:petrecycler/common/widgets/custom_activity.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/images_texts.dart';
 import 'widgets/custom_bottle_progress_report.dart';
 import 'widgets/custom_home_slider.dart';
-import 'widgets/custom_recent_activites.dart';
-import 'widgets/custom_notification_view.dart';
+import '../../../../../common/widgets/custom_recent_activites.dart';
+import '../../../../../common/widgets/custom_notification_view.dart';
 
 class UserHomeView extends StatelessWidget {
   const UserHomeView({super.key});
@@ -17,7 +18,6 @@ class UserHomeView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          
           backgroundColor: Colors.transparent,
           leading: const CircleAvatar(
             backgroundImage: AssetImage(CImages.userProfile),
@@ -92,7 +92,11 @@ class UserHomeView extends StatelessWidget {
 
               const SizedBox(height: CSizes.md),
 
-              const CustomRecentActivites()
+              const CustomRecentActivites(
+                itemCount: 4,
+                builder: CustomActivity(
+                    title: 'Request completed', subTitle: 'Pickup date set'),
+              )
             ],
           ),
         ),

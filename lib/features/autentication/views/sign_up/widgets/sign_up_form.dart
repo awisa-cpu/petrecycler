@@ -4,6 +4,7 @@ import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/features/autentication/controllers/sign_up_controller.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
+import 'package:petrecycler/utilities/validators/validators.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({
@@ -25,6 +26,8 @@ class SignUpForm extends StatelessWidget {
           //first name & company name
           userTypeAdmin
               ? TextFormField(
+                  validator: (value) =>
+                      CValidators.validateEmptyText('Company name', value),
                   controller: controller.companyName,
                   decoration: InputDecoration(
                       fillColor: Colors.grey[600],
@@ -36,6 +39,8 @@ class SignUpForm extends StatelessWidget {
                   keyboardType: TextInputType.name,
                 )
               : TextFormField(
+                  validator: (value) =>
+                      CValidators.validateEmptyText('First name', value),
                   controller: controller.firstName,
                   decoration: InputDecoration(
                       fillColor: Colors.grey[600],
@@ -52,6 +57,8 @@ class SignUpForm extends StatelessWidget {
           //sur name & company contact person
           userTypeAdmin
               ? TextFormField(
+                  validator: (value) =>
+                      CValidators.validateEmptyText('Contact name', value),
                   controller: controller.contactPersonName,
                   decoration: InputDecoration(
                       fillColor: Colors.grey[600],
@@ -63,6 +70,8 @@ class SignUpForm extends StatelessWidget {
                   keyboardType: TextInputType.name,
                 )
               : TextFormField(
+                  validator: (value) =>
+                      CValidators.validateEmptyText('Surname', value),
                   controller: controller.surName,
                   decoration: InputDecoration(
                       fillColor: Colors.grey[600],
@@ -78,6 +87,7 @@ class SignUpForm extends StatelessWidget {
 
           //email for both users
           TextFormField(
+            validator: (value) => CValidators.validateEmail(value),
             controller: controller.email,
             decoration: InputDecoration(
                 fillColor: Colors.grey[600],
@@ -93,6 +103,7 @@ class SignUpForm extends StatelessWidget {
 
           //phone number for both users
           TextFormField(
+            validator: (value) => CValidators.validatePhoneNumber(value),
             controller: controller.telephoneOrPhoneNo,
             decoration: InputDecoration(
                 fillColor: Colors.grey[600],
@@ -108,6 +119,8 @@ class SignUpForm extends StatelessWidget {
 
           //address for both users
           TextFormField(
+            validator: (value) => CValidators.validateEmptyText(
+                userTypeAdmin ? 'Company address' : 'Address', value),
             controller: controller.address,
             decoration: InputDecoration(
                 fillColor: Colors.grey[600],
@@ -126,6 +139,8 @@ class SignUpForm extends StatelessWidget {
           //LGA
           userTypeAdmin
               ? TextFormField(
+                  validator: (value) =>
+                      CValidators.validateEmptyText('LGA', value),
                   controller: controller.lga,
                   decoration: InputDecoration(
                       fillColor: Colors.grey[600],
@@ -145,6 +160,8 @@ class SignUpForm extends StatelessWidget {
           //RC no.
           userTypeAdmin
               ? TextFormField(
+                  validator: (value) =>
+                      CValidators.validateEmptyText('Rc No.', value),
                   controller: controller.rcn,
                   decoration: InputDecoration(
                       fillColor: Colors.grey[600],
@@ -162,6 +179,7 @@ class SignUpForm extends StatelessWidget {
           //password
           Obx(
             () => TextFormField(
+              validator: (value) => CValidators.validatePassword(value),
               controller: controller.password,
               decoration: InputDecoration(
                 fillColor: Colors.grey[600],

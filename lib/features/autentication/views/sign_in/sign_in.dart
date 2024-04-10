@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart';
+import 'package:petrecycler/utilities/constants/images_texts.dart';
+import 'package:petrecycler/utilities/device_utility/device_utility.dart';
 import 'widgets/sign_in_form.dart';
 
 class SignInView extends StatelessWidget {
@@ -8,20 +10,23 @@ class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text('Sign in'),
-      ),
-      body: const CustomLayoutWithScrollAndPadding(
+      body: CustomLayoutWithScrollAndPadding(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image(
+              image: const AssetImage(CImages.loginAuth),
+              height: CDeviceUtility.getScreenHeight(context) * 0.28,
+            ),
             //
-            Text('Enter details to sign into your account'),
+            Text(
+              'Enter details to sign into your account',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
 
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             //
-            SignInForm()
+            const SignInForm()
           ],
         ),
       ),

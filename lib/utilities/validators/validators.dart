@@ -34,15 +34,15 @@ class CValidators {
       return 'Password must be at least 6 characters long';
     }
 
-    //check for uppercase letters
-    // if (!password.contains(RegExp(r'[A-Z]'))) {
-    //   return 'Password must contain at least one uppercase letter';
-    // }
+    // check for uppercase letters
+    if (!password.contains(RegExp(r'[A-Z]'))) {
+      return 'Password must contain at least one uppercase letter';
+    }
 
-    //check for uppercase letters
-    // if (!password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-    //   return 'Password must contain at least one special character';
-    // }
+    // check for uppercase letters
+    if (!password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return 'Password must contain at least one special character';
+    }
 
     return null;
   }
@@ -57,7 +57,7 @@ class CValidators {
 
     if (!phoneRegExp.hasMatch(value)) {
       //if it does not match
-      return 'Invalid phone number format (10 digits required)';
+      return 'Invalid phone number format (11 digits required)';
     }
     return null;
   }

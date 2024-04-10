@@ -43,7 +43,8 @@ class SignInForm extends StatelessWidget {
           //password
           Obx(
             () => TextFormField(
-              validator: CValidators.validatePassword,
+              validator: (value) =>
+                  CValidators.validateEmptyText('password', value),
               controller: controller.password,
               decoration: InputDecoration(
                 labelText: CTexts.password,

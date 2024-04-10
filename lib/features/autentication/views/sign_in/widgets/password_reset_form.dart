@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/features/autentication/controllers/forgot_password_controller.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
+import 'package:petrecycler/utilities/validators/validators.dart';
 
 class PasswordResetForm extends StatelessWidget {
   const PasswordResetForm({
-    super.key, this.actionText,
+    super.key,
+    this.actionText,
   });
   final String? actionText;
 
@@ -19,6 +21,7 @@ class PasswordResetForm extends StatelessWidget {
           //password
           Obx(
             () => TextFormField(
+              validator: CValidators.validatePassword,
               decoration: InputDecoration(
                 labelText: CTexts.password,
                 prefixIcon: const Icon(Icons.password),
@@ -42,6 +45,7 @@ class PasswordResetForm extends StatelessWidget {
           //Confirm password
           Obx(
             () => TextFormField(
+              validator: CValidators.validatePassword,
               decoration: InputDecoration(
                 labelText: CTexts.confirmPassword,
                 prefixIcon: const Icon(Icons.password),
@@ -62,7 +66,11 @@ class PasswordResetForm extends StatelessWidget {
 
           const SizedBox(height: 13),
 
-          CustomEButton(onPressed: () {}, text:actionText?? 'Reset Password',addIcon: false,),
+          CustomEButton(
+            onPressed: () {},
+            text: actionText ?? 'Reset Password',
+            addIcon: false,
+          ),
         ],
       ),
     );
