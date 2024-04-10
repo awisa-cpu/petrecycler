@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -55,10 +54,10 @@ class AuthRepository extends GetxController {
     }
   }
 
-//method to get the current user in the application
+  ///method to get the current user in the application
   User? get authUser => FirebaseAuth.instance.currentUser;
 
-  //method to create a user
+  //method to create a  new user using their provided email and password
   Future<UserCredential> registerUserWithEmailAndPassword({
     required String email,
     required String password,
@@ -78,7 +77,7 @@ class AuthRepository extends GetxController {
     }
   }
 
-//method to verify email address
+  ///method to send a verification message to the user
   Future<void> sendEmailVerification() async {
     try {
       _auth.currentUser?.sendEmailVerification();
@@ -93,7 +92,7 @@ class AuthRepository extends GetxController {
     }
   }
 
-  //method to sign in a user
+  //method to sign in a user using their email and password
   Future<UserCredential> signInUserWithEmailAndPassword({
     required String email,
     required String password,
@@ -117,10 +116,11 @@ class AuthRepository extends GetxController {
     }
   }
 
-  //method to sign out the user
+  ///method to sign out the user from the app
   Future<void> signOutUser() async {
     try {
       if (authUser != null) {
+        await GoogleSignIn().signOut();
         await _auth.signOut();
         Get.offAll(() => const SignInView());
       }
@@ -135,7 +135,7 @@ class AuthRepository extends GetxController {
     }
   }
 
-//method to reset password
+  ///method to reset password
   Future<void> sendPasswordResetEmail({
     required String email,
   }) async {
@@ -152,11 +152,42 @@ class AuthRepository extends GetxController {
     }
   }
 
-//sign in with google provider
-  Future<UserCredential> signInWithGoogle({
-    required String email,
-    required String password,
-  }) async {
+  //method to delete user account
+  Future<void> deleteAccount() async {
+    try {
+      await _auth.currentUser?.delete();
+    } on CustomFirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on CustomFirebaseAuthExc catch (e) {
+      throw CustomFirebaseAuthExc(code: e.code).message;
+    } on CustomPlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } on CustomFormatException catch (_) {
+      throw const CustomFormatException();
+    }
+  }
+
+  ///reautheticate user with fresh credentials
+  Future<void> reAuthenticateWithEmailAndPassword(
+      {required String email, required String password}) async {
+    try {
+      final credential =
+          EmailAuthProvider.credential(email: email, password: password);
+
+      await authUser!.reauthenticateWithCredential(credential);
+    } on CustomFirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on CustomFirebaseAuthExc catch (e) {
+      throw CustomFirebaseAuthExc(code: e.code).message;
+    } on CustomPlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } on CustomFormatException catch (_) {
+      throw const CustomFormatException();
+    }
+  }
+
+  ///sign in with google provider
+  Future<UserCredential> signInWithGoogle() async {
     try {
       //starts the auth flow
       final userGoogleSignInAccount = await GoogleSignIn().signIn();

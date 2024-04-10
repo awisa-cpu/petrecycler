@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
 import 'package:petrecycler/features/autentication/model/user_model.dart';
 import 'package:petrecycler/utilities/exceptions/custom_firebase_auth_exceptions.dart';
@@ -13,6 +17,7 @@ class UserRepository extends GetxController {
   ///varibales
   final _db = FirebaseFirestore.instance;
   final authRepo = Get.put(AuthRepository());
+  final storageInstance = FirebaseStorage.instance;
 
   //create a user
   Future<void> createUser(UserModel user) async {
@@ -33,7 +38,7 @@ class UserRepository extends GetxController {
   }
 
   //fetch a user
-  Future<UserModel> getUser() async {
+  Future<UserModel> fetchUserRecord() async {
     try {
       final docSnapshot =
           await _db.collection('Users').doc(authRepo.authUser!.uid).get();
@@ -106,9 +111,27 @@ class UserRepository extends GetxController {
   }
 
   //delete a user
-  Future<void> deleteUser(UserModel user) async {
+  Future<void> deleteUserRecord(UserModel user) async {
     try {
       await _db.collection('Users').doc(authRepo.authUser!.uid).delete();
+    } on CustomFirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on CustomFirebaseAuthExc catch (e) {
+      throw CustomFirebaseAuthExc(code: e.code).message;
+    } on CustomPlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } on CustomFormatException catch (_) {
+      throw const CustomFormatException();
+    }
+  }
+
+  Future<String> uploadUserImage(
+      {required String path, required XFile image}) async {
+    try {
+      final reference = storageInstance.ref(path).child(image.name);
+      reference.putFile(File(image.path));
+
+      return reference.getDownloadURL();
     } on CustomFirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
     } on CustomFirebaseAuthExc catch (e) {

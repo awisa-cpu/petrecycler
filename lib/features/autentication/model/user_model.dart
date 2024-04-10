@@ -15,7 +15,7 @@ class UserModel {
   final String? lga;
   final String? rcn;
   final String userRole;
-  final String? profilePicture;
+   String? profilePicture;
 
   //default constructor
   UserModel({

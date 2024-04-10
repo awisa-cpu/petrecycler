@@ -95,7 +95,7 @@ class SignInController extends GetxController {
       );
 
       //once logged in, fetch the user
-      final user = await userRepo.getUser();
+      final user = await userRepo.fetchUserRecord();
 
       //stop loading
       CApploader.stopLoader();
@@ -105,6 +105,8 @@ class SignInController extends GetxController {
         title: "Congratulations",
         message: "${user.userRole} logged in succefully",
       );
+
+      //
 
       //authorize based on roles
       if (user.userRole == 'admin') {
