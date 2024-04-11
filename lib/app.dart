@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petrecycler/utilities/constants/colors.dart';
 import 'package:petrecycler/utilities/themes/light_theme.dart';
 
 class MyApp extends StatelessWidget {
@@ -25,7 +26,9 @@ class PageInit extends StatelessWidget {
     return const Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          color: CColors.mainColor,
+        ),
       ),
     );
   }

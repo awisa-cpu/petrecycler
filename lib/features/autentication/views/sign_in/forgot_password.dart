@@ -23,8 +23,12 @@ class ForgotPasswordView extends StatelessWidget {
           children: [
             //
             Text(
-              'Fill in your new password',
+              "Forgot password? Don't Worry",
               style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Text(
+              'Fill in your verified email to get a password reset link sent to you',
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
 
             const SizedBox(height: CSizes.lg),

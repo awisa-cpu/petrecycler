@@ -1,12 +1,14 @@
 class FaqModel {
   String title;
   String body;
-  bool expand;
+  bool isExpanded;
 
   //con
   FaqModel({
     required this.title,
     required this.body,
-    this.expand = false,
+    this.isExpanded = false,
   });
+
+  factory FaqModel.empty()=>FaqModel(title: '', body: '',isExpanded: false);
 }

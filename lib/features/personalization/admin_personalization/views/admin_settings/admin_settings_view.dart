@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart';
 import 'package:petrecycler/common/widgets/buttons/custom_out_lined_button.dart';
 import 'package:petrecycler/features/autentication/controllers/sign_in_controller.dart';
-import 'package:petrecycler/features/personalization/admin_personalization/controllers/admin_settings_controller.dart';
+import 'package:petrecycler/features/personalization/admin_personalization/views/settings/admin_account_info_view.dart';
+import 'package:petrecycler/features/personalization/admin_personalization/views/settings/admin_address_info_view.dart';
+import 'package:petrecycler/features/personalization/admin_personalization/views/settings/admin_issues_help_view.dart';
+import 'package:petrecycler/features/personalization/user_personalization/controllers/user_controller.dart';
 import 'package:petrecycler/features/personalization/user_personalization/views/user_settings/widgets/custom_settings_option.dart';
 import 'package:petrecycler/features/personalization/user_personalization/views/user_settings/widgets/custom_user_profile_page.dart';
-import 'package:petrecycler/utilities/constants/images_texts.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 
 class AdminSettingsView extends StatelessWidget {
@@ -15,7 +18,7 @@ class AdminSettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignInController());
-    final adminSettingsController = Get.put(AdminSettingsController());
+    final userController = UserController.instance;
 
     //
     return Scaffold(
@@ -29,9 +32,9 @@ class AdminSettingsView extends StatelessWidget {
           children: [
             //section 1: profile
             CustomProfilePage(
-              userEmail: 'dandgawisa@gmail.com',
-              onPressed: () {},
-              profileImage: CImages.adminProfile,
+              userEmail: userController.user.value.email,
+              onPressed: userController.uploadUserProfilePicture,
+              profileImage: userController.user.value.profilePicture,
             ),
 
             const SizedBox(height: CSizes.md),
@@ -41,19 +44,26 @@ class AdminSettingsView extends StatelessWidget {
 
             const SizedBox(height: CSizes.md),
 
-            ListView.builder(
-              padding: EdgeInsets.zero,
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: adminSettingsController.generalSettings.length,
-              itemBuilder: (_, index) {
-                final settings = adminSettingsController.generalSettings[index];
-                return CustomSettingsOption(
-                  text: settings.title,
-                  icon: settings.icon,
-                  onPressed: settings.action,
-                );
-              },
+            CustomSettingsOption(
+              text: 'Account Information',
+              icon: Icons.person,
+              onPressed: () => Get.to(
+                () => const AdminAccountInformationView(),
+              ),
+            ),
+
+            CustomSettingsOption(
+              text: 'Address Information',
+              icon: Iconsax.location,
+              onPressed: () => Get.to(
+                () => const AdminAddressInformationView(),
+              ),
+            ),
+
+            CustomSettingsOption(
+              text: 'Help Center',
+              icon: Iconsax.location,
+              onPressed: () => Get.to(() => const AdminIssuesHelpView()),
             ),
 
             const SizedBox(height: CSizes.lg),

@@ -14,6 +14,7 @@ class ContactUsView extends StatelessWidget {
       appBar: const CustomAppBar(
         showBackArrow: true,
         title: Text('Contact us'),
+        showCenterTitle: true,
       ),
       body: CustomLayoutWithScrollAndPadding(
           child: Column(

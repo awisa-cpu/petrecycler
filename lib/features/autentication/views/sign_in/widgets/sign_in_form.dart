@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/features/autentication/controllers/sign_in_controller.dart';
 import 'package:petrecycler/features/autentication/views/sign_up/user_type_decider_view.dart';
@@ -33,7 +34,7 @@ class SignInForm extends StatelessWidget {
             controller: controller.email,
             decoration: const InputDecoration(
               labelText: CTexts.email,
-              prefixIcon: Icon(Icons.email_outlined),
+              prefixIcon: Icon(Iconsax.direct_right),
             ),
             keyboardType: TextInputType.emailAddress,
           ),
@@ -48,7 +49,7 @@ class SignInForm extends StatelessWidget {
               controller: controller.password,
               decoration: InputDecoration(
                 labelText: CTexts.password,
-                prefixIcon: const Icon(Icons.password),
+                prefixIcon: const Icon(Iconsax.password_check),
                 suffixIcon: IconButton(
                   enableFeedback: false,
                   onPressed: controller.shouldShowPassword,

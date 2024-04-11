@@ -4,27 +4,33 @@ import 'package:petrecycler/utilities/constants/colors.dart';
 
 class CustomRequestTitleWithIcon extends StatelessWidget {
   const CustomRequestTitleWithIcon({
-    super.key,
+    super.key, required this.icon, this.iconColor, required this.title,  this.height=30,  this.width=30, this.backgroundColor,
   });
+  final IconData icon;
+  final Color? iconColor;
+  final Color? backgroundColor;
+  final String title;
+  final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const CustomRoundedContainer(
-          height: 30,
-          width: 30,
-          backgroundColor: CColors.mainColor,
+        CustomRoundedContainer(
+          height: height,
+          width: width,
+          backgroundColor: backgroundColor?? CColors.mainColor,
           child: Icon(
-            Icons.recycling,
-            color: CColors.white,
+           icon,
+            color: iconColor?? CColors.white,
           ),
         ),
         const SizedBox(
           width: 10,
         ),
         Text(
-          'Pet Bottle Recycling',
+         title,
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ],

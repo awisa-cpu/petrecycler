@@ -11,6 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIcon;
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
+  final bool  showCenterTitle;
 
   const CustomAppBar(
       {super.key,
@@ -19,7 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.leadingIcon,
       this.actions,
       this.leadingOnPressed,
-      this.image});
+      this.image,  this.showCenterTitle =false});
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 : image,
         title: title,
         actions: actions,
+        centerTitle: showCenterTitle,
       ),
     );
   }

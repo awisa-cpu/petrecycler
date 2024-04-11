@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart';
 import 'package:petrecycler/common/widgets/custom_notification_view.dart';
+import 'package:petrecycler/features/personalization/user_personalization/controllers/user_controller.dart';
 import 'package:petrecycler/utilities/constants/colors.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
+import 'package:petrecycler/utilities/shimmers/custom_shimmer_effect.dart';
 
 import 'widgets/custom_admin_home_recent_activity.dart';
 import 'widgets/custom_home_request_bar_data.dart';
@@ -13,6 +16,9 @@ class AdminHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userController = Get.put(UserController());
+
+    //
     return Scaffold(
       appBar: AppBar(
         backgroundColor: CColors.light,
@@ -26,10 +32,12 @@ class AdminHomeView extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'Welcome back, James!',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
+                userController.isProfileNameLoading.value
+                    ? const CustomShimmerEffect(width: 90, height: 15)
+                    : Text(
+                        'Welcome back, ${userController.user.value.contactPersonName}',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                 const Icon(
                   Icons.handshake,
                   color: Colors.yellow,

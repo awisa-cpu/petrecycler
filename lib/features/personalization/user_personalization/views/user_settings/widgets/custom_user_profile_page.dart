@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:petrecycler/utilities/constants/colors.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 
+import '../../../../../../common/widgets/custom_image_widget.dart';
+
 class CustomProfilePage extends StatelessWidget {
   const CustomProfilePage({
     super.key,
@@ -11,7 +13,7 @@ class CustomProfilePage extends StatelessWidget {
   });
   final String userEmail;
   final VoidCallback onPressed;
-  final String profileImage;
+  final String? profileImage;
 
   @override
   Widget build(BuildContext context) {
@@ -20,24 +22,18 @@ class CustomProfilePage extends StatelessWidget {
       children: [
         Column(
           children: [
-            CircleAvatar(
-              radius: 40,
-              backgroundColor: CColors.mainColor,
-              child: CircleAvatar(
-                backgroundImage: AssetImage(profileImage),
-                radius: 35,
-              ),
-            ),
+            CustomImageWidget(profileImage: profileImage),
             const SizedBox(height: CSizes.sm),
             Text(userEmail),
             TextButton(
-                onPressed: onPressed,
-                child: Text(
-                  'Change Profile picture',
-                  style: Theme.of(context).textTheme.bodySmall!.apply(
-                        color: CColors.mainColor,
-                      ),
-                ))
+              onPressed: onPressed,
+              child: Text(
+                'Change Profile picture',
+                style: Theme.of(context).textTheme.bodySmall!.apply(
+                      color: CColors.mainColor,
+                    ),
+              ),
+            )
           ],
         ),
       ],

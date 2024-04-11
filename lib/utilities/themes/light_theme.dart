@@ -13,9 +13,8 @@ class LightTheme {
         useMaterial3: true,
         fontFamily: 'Poppins',
         brightness: Brightness.light,
-        scaffoldBackgroundColor: CColors.light,
-        appBarTheme:
-            const AppBarTheme(backgroundColor: CColors.light, elevation: 0.5),
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
         elevatedButtonTheme: CElevatedButtonTheme.lightElevatedBTheme,
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: CColors.mainColor),

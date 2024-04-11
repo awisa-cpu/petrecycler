@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
 import 'package:petrecycler/data/repositories/users_repo/user_repository.dart';
 import 'package:petrecycler/data/services/network_service/network_manager.dart';
@@ -18,6 +19,7 @@ class SignInController extends GetxController {
   final authRepo = AuthRepository.instance;
   final networkRepo = Get.put(NetWorkManager());
   final userRepo = Get.put(UserRepository());
+  final storageBucket = GetStorage();
   final RxBool rememberMe = false.obs;
   final RxBool showPassword = false.obs;
   final RxBool showUser = false.obs;
@@ -94,8 +96,8 @@ class SignInController extends GetxController {
         password: password.text.trim(),
       );
 
-      //once logged in, fetch the user
-      final user = await userRepo.fetchUserRecord();
+      //once logged in, fetch the userrole
+      final userRole = storageBucket.read('currentUserRole');
 
       //stop loading
       CApploader.stopLoader();
@@ -103,15 +105,13 @@ class SignInController extends GetxController {
       //show success snack message
       CustomSnackBars.showSuccessSnackBar(
         title: "Congratulations",
-        message: "${user.userRole} logged in succefully",
+        message: "$userRole logged in succefully",
       );
 
-      //
-
       //authorize based on roles
-      if (user.userRole == 'admin') {
+      if (userRole == 'admin') {
         Get.offAll(() => const AdminNavigationMenu());
-      } else if (user.userRole == 'user') {
+      } else if (userRole == 'user') {
         Get.offAll(() => const UserNavigationMenu());
       }
     } catch (e) {

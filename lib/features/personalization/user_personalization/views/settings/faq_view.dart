@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart';
 import 'package:petrecycler/common/widgets/custom_app_bar.dart';
-import 'package:petrecycler/features/personalization/user_personalization/controllers/faq_controller.dart';
+import 'package:petrecycler/features/personalization/user_personalization/controllers/user_settings_controller.dart';
 
 class FaqView extends StatelessWidget {
   const FaqView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(FaqController());
+    final controller = Get.put(UserSettingsController());
+
+    //
     return Scaffold(
       appBar: const CustomAppBar(
         showBackArrow: true,
         title: Text('Frequently Asked Questions'),
+        showCenterTitle: true,
       ),
-      body: CustomLayoutWithScrollAndPadding(
+      body: SingleChildScrollView(
         child: Obx(
           () => ExpansionPanelList(
             expandedHeaderPadding: const EdgeInsets.all(0),
-            expansionCallback: (index, isExpanded){
-              final tile = controller.allFaqs[index];
-              controller.expandPanelCon(tile.expand);
-            },
+            expansionCallback: controller.expandPanelCon,
             children: controller.allFaqs.map(
               (e) {
                 return ExpansionPanel(
+                  backgroundColor: Colors.white,
                   headerBuilder: (context, isExpanded) {
                     return ListTile(
                       title: Text(
@@ -37,7 +37,7 @@ class FaqView extends StatelessWidget {
                   body: ListTile(
                     title: Text(e.body),
                   ),
-                  isExpanded: controller.isExpanded.value,
+                  isExpanded: controller.tile.value.isExpanded,
                 );
               },
             ).toList(),

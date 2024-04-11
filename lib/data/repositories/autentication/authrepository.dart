@@ -5,10 +5,12 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:petrecycler/data/repositories/users_repo/user_repository.dart';
 import 'package:petrecycler/features/autentication/views/onboarding/onboarding.dart';
 import 'package:petrecycler/features/autentication/views/sign_in/sign_in.dart';
 import 'package:petrecycler/features/autentication/views/sign_up/verify_email.dart';
 import 'package:petrecycler/features/navigations/admin_navigation_menu.dart';
+import 'package:petrecycler/features/navigations/user_navigation_menu.dart';
 import 'package:petrecycler/utilities/exceptions/custom_firebase_auth_exceptions.dart';
 import 'package:petrecycler/utilities/exceptions/custom_firebase_exceptions.dart';
 import 'package:petrecycler/utilities/exceptions/format_exceptions.dart';
@@ -33,10 +35,15 @@ class AuthRepository extends GetxController {
   void screenDirect() async {
     final user = _auth.currentUser;
     if (user != null) {
+      final userRole = storageBucket.read('currentUserRole');
       //then check if email is verified
       if (user.emailVerified) {
         //autorize based on roles :todo
-        Get.offAll(() => const AdminNavigationMenu());
+        if (userRole == 'admin') {
+          Get.offAll(() => const AdminNavigationMenu());
+        } else if (userRole == 'user') {
+          Get.offAll(() => const UserNavigationMenu());
+        }
       } else {
         Get.off(() => const VerifyEmailScreen());
       }
@@ -98,8 +105,14 @@ class AuthRepository extends GetxController {
     required String password,
   }) async {
     try {
+      final userRepo = Get.put(UserRepository());
       final credential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
+
+      //fetch and store  the role in the local storage user
+      final userRecord = await userRepo.fetchUserRecord();
+      storageBucket.write('currentUserRole', userRecord.userRole);
+
       return credential;
     } on CustomFirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
@@ -109,10 +122,10 @@ class AuthRepository extends GetxController {
       throw CustomPlatformException(e.code).message;
     } on CustomFormatException catch (_) {
       throw const CustomFormatException();
-    } on SocketException catch (e) {
-      throw "Error connecting to the network ${e.message}";
-    } on TimeoutException catch (e) {
-      throw 'Request timed out ${e.message}';
+    } on SocketException catch (_) {
+      throw "Error connecting to the network";
+    } on TimeoutException catch (_) {
+      throw 'Request timed out ';
     }
   }
 
