@@ -6,8 +6,8 @@ import 'package:petrecycler/data/repositories/users_repo/user_repository.dart';
 import 'package:petrecycler/data/services/network_service/network_manager.dart';
 import 'package:petrecycler/features/autentication/views/sign_up/sign_up_user.dart';
 import 'package:petrecycler/features/autentication/views/sign_up/sign_up_recycler.dart';
-import 'package:petrecycler/features/navigations/admin_navigation_menu.dart';
-import 'package:petrecycler/features/navigations/user_navigation_menu.dart';
+import 'package:petrecycler/features/admin/admin_navigation/admin_navigation_menu.dart';
+import 'package:petrecycler/features/user/user_navigation/user_navigation_menu.dart';
 import 'package:petrecycler/utilities/constants/images_texts.dart';
 import 'package:petrecycler/utilities/loaders/app_loader.dart';
 import 'package:petrecycler/utilities/snackbars/custom_snackbars.dart';
@@ -97,7 +97,8 @@ class SignInController extends GetxController {
       );
 
       //once logged in, fetch the userrole
-      final userRole = storageBucket.read('currentUserRole');
+      final userInstance = storageBucket.read('currentUser');
+      final userRole = userInstance['userRole'];
 
       //stop loading
       CApploader.stopLoader();

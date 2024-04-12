@@ -63,6 +63,10 @@ dependencies:
   firebase_auth: ^4.16.0
   firebase_storage: ^11.6.0
   cloud_firestore: ^4.14.0
+  firebase_messaging: ^14.8.1
+  firebase_analytics: ^10.10.1
+
+  #google
   google_sign_in: ^6.2.1
   google_maps_flutter: ^2.2.8
 

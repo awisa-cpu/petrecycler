@@ -15,7 +15,7 @@ class UserModel {
   final String? lga;
   final String? rcn;
   final String userRole;
-   String? profilePicture;
+  String? profilePicture;
 
   //default constructor
   UserModel({
@@ -76,8 +76,8 @@ class UserModel {
         email: data['email'],
         phoneNumber: data['phoneNumber'],
         address: data['address'],
-        lga: data['lga']??'',
-        rcn: data['rcn']??'',
+        lga: data['lga'] ?? '',
+        rcn: data['rcn'] ?? '',
         userRole: data['userRole'],
         profilePicture: data['profilePicture'] ?? '',
       );

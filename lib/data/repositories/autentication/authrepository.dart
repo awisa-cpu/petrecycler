@@ -9,8 +9,8 @@ import 'package:petrecycler/data/repositories/users_repo/user_repository.dart';
 import 'package:petrecycler/features/autentication/views/onboarding/onboarding.dart';
 import 'package:petrecycler/features/autentication/views/sign_in/sign_in.dart';
 import 'package:petrecycler/features/autentication/views/sign_up/verify_email.dart';
-import 'package:petrecycler/features/navigations/admin_navigation_menu.dart';
-import 'package:petrecycler/features/navigations/user_navigation_menu.dart';
+import 'package:petrecycler/features/admin/admin_navigation/admin_navigation_menu.dart';
+import 'package:petrecycler/features/user/user_navigation/user_navigation_menu.dart';
 import 'package:petrecycler/utilities/exceptions/custom_firebase_auth_exceptions.dart';
 import 'package:petrecycler/utilities/exceptions/custom_firebase_exceptions.dart';
 import 'package:petrecycler/utilities/exceptions/format_exceptions.dart';
@@ -35,7 +35,8 @@ class AuthRepository extends GetxController {
   void screenDirect() async {
     final user = _auth.currentUser;
     if (user != null) {
-      final userRole = storageBucket.read('currentUserRole');
+      final userInstance = storageBucket.read('currentUser');
+      final userRole = userInstance['userRole'];
       //then check if email is verified
       if (user.emailVerified) {
         //autorize based on roles :todo
@@ -111,7 +112,7 @@ class AuthRepository extends GetxController {
 
       //fetch and store  the role in the local storage user
       final userRecord = await userRepo.fetchUserRecord();
-      storageBucket.write('currentUserRole', userRecord.userRole);
+      storageBucket.write('currentUser', userRecord.toJson());
 
       return credential;
     } on CustomFirebaseException catch (e) {
@@ -135,6 +136,7 @@ class AuthRepository extends GetxController {
       if (authUser != null) {
         await GoogleSignIn().signOut();
         await _auth.signOut();
+        storageBucket.remove('currentUser');
         Get.offAll(() => const SignInView());
       }
     } on CustomFirebaseException catch (e) {

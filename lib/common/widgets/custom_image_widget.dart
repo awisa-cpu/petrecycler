@@ -28,7 +28,7 @@ class CustomImageWidget extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: CachedNetworkImage(
-                imageUrl: profileImage!,
+                imageUrl: profileImage ?? "",
                 errorWidget: (_, url, error) => const Icon(Icons.person),
                 progressIndicatorBuilder: (_, url, progress) =>
                     const CustomShimmerEffect(
