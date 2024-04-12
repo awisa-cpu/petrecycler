@@ -1,6 +1,7 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:petrecycler/common/widgets/buttons/custom_text_button.dart';
 import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
 import 'package:petrecycler/data/repositories/users_repo/user_repository.dart';
 import 'package:petrecycler/data/services/network_service/network_manager.dart';
@@ -129,5 +130,35 @@ class SignInController extends GetxController {
       CustomSnackBars.showErrorSnackBar(
           title: "Oh Snap", message: e.toString());
     }
+  }
+
+  void showLogoutDialog() async {
+    await showDialog(
+      context: Get.context!,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to logout? '),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomTextButton(
+                  text: 'Yes',
+                  onPressed: () => logoutUser(),
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                ),
+                CustomTextButton(
+                  text: 'No',
+                  onPressed: () => Navigator.of(context).pop(),
+                  textColor: Colors.white,
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 }

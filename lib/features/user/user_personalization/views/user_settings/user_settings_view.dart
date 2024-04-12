@@ -104,7 +104,7 @@ class UserSettingsView extends StatelessWidget {
             //section 4: logout
             CustomOutLinedButton(
               text: 'Logout',
-              onPressed: controller.logoutUser,
+              onPressed: controller.showLogoutDialog,
             )
           ],
         ),
