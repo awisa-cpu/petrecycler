@@ -1,6 +1,6 @@
 
 *.txt
-lib/firebase_options.dart
+#lib/firebase_options.dart
 lib/utilities/constants/api_key.dart
 
 

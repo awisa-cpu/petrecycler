@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/data/services/network_service/network_manager.dart';
+import 'package:petrecycler/data/services/notification_service/notification_service.dart';
 import 'package:petrecycler/features/admin/admin_notifications_management/controllers/admin_notifications_controller.dart';
 import 'package:petrecycler/features/user/user_notifications_management/model/request_model.dart';
 import 'package:petrecycler/utilities/loaders/overlay_loading_screen.dart';
@@ -64,20 +65,13 @@ class AdminReplyController extends GetxController {
         }
       }
 
-      FirebaseFirestore.instance
-          .collection("Requests")
-          .doc(request.uid)
-          .update({"status": newStatus});
+      // FirebaseFirestore.instance
+      //     .collection("Requests")
+      //     .doc(request.uid)
+      //     .update({"status": newStatus});
 
-      AdminNotificationsController.instance.updateLocalList(request, newStatus);
+      // AdminNotificationsController.instance.updateLocalList(request, newStatus);
 
-      CustomOverlayLoader().stopLoader();
-      Navigator.pop(Get.context!);
-
-      CustomSnackBars.showSuccessSnackBar(
-          title: 'Reply sent', message: 'request has been updated');
-
-/*
       //update the pening request
       FirebaseFirestore.instance.runTransaction((transaction) async {
         final fetchedRequest =
@@ -98,12 +92,18 @@ class AdminReplyController extends GetxController {
           body: 'update on ${request.uid} request',
           data: {
             'notificationType': 'userNotification',
-            'dop' : scheduleReplyDate.text.trim(),
-            'top' :scheduleReplyTime.text.trim()
-            },
+            'dop': scheduleReplyDate.text.trim(),
+            'top': scheduleReplyTime.text.trim()
+          },
         );
+
+        CustomOverlayLoader().stopLoader();
+        Navigator.pop(Get.context!);
+
+        CustomSnackBars.showSuccessSnackBar(
+            title: 'Reply sent', message: 'request has been updated');
       });
-*/
+
       //inform the user with the pickup date and time and other relevant details
     } catch (e) {
       CustomOverlayLoader().stopLoader();
