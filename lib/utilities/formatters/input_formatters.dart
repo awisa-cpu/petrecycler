@@ -1,4 +1,8 @@
+import 'package:intl/intl.dart';
+class CFormatters{
 
-class CInputFormatters{
+static  String formatDate(String date){
+   return  DateFormat('dd-MM-yyyy').format(DateTime.parse(date));
+  }
   
 }

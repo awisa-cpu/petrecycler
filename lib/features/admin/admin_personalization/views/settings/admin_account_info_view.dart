@@ -11,7 +11,9 @@ class AdminAccountInformationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return 
+    
+    DefaultTabController(
       length: 2,
       child: Scaffold(
         body: NestedScrollView(

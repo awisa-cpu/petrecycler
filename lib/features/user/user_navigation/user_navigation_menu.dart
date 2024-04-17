@@ -1,8 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:petrecycler/features/user/user_pet_management/views/user_request_view.dart';
-import 'package:petrecycler/features/admin/admin_mapping/views/user_map_view.dart';
+import 'package:petrecycler/features/user/user_notifications_management/views/user_request_view.dart';
 import 'package:petrecycler/features/user/user_personalization/views/user_settings/user_settings_view.dart';
 import 'package:petrecycler/features/user/user_dashboard/views/user_home/user_home_view.dart';
 import 'package:petrecycler/utilities/constants/colors.dart';
@@ -28,14 +27,15 @@ class UserNavigationMenu extends StatelessWidget {
           animationDuration: const Duration(milliseconds: 200),
           onTap: controller.onDestinationSelected,
           items: const [
-            CustomNavIcon(
-              icon: Icons.home,
-            ),
-            CustomNavIcon(
-              icon: Icons.location_on,
-            ),
+         
+            // CustomNavIcon(
+            //   icon: Icons.location_on,
+            // ),
             CustomNavIcon(
               icon: Icons.book_rounded,
+            ),
+               CustomNavIcon(
+              icon: Icons.home,
             ),
             CustomNavIcon(
               icon: Icons.person,
@@ -52,7 +52,7 @@ class NavigationController extends GetxController {
   static NavigationController get instance => Get.find();
 
   //varibales
-  RxInt selectedIndex = 0.obs;
+  RxInt selectedIndex = 1.obs;
 
   //methods
   void onDestinationSelected(int index) {
@@ -62,12 +62,13 @@ class NavigationController extends GetxController {
   Widget displayScreen(int currentIndex) {
     switch (currentIndex) {
       case 0:
-        return const UserHomeView();
+         return const UserRequestView();
+      
+      // case 1:
+      //   return const UserMapView();
       case 1:
-        return const UserMapView();
+       return const UserHomeView();
       case 2:
-        return const UserRequestView();
-      case 3:
         return const UserSettingsView();
       default:
         return const Scaffold(

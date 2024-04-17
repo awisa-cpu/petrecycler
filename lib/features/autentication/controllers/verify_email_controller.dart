@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/common/widgets/success_screen.dart';
 import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
+import 'package:petrecycler/features/autentication/views/sign_in/sign_in.dart';
 import 'package:petrecycler/utilities/constants/images_texts.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
 import 'package:petrecycler/utilities/snackbars/custom_snackbars.dart';
@@ -45,7 +46,7 @@ class VerifyEmailController extends GetxController {
             imageUrl: CImages.successfullyRegistrationAnimation,
             title: CTexts.yourAccountCreatedTitle,
             subtitle: CTexts.yourAccountCreatedSubTitle,
-            onPressed: () => AuthRepository.instance.screenDirect(),
+            onPressed: () => Get.offAll(() => const SignInView()),
           ),
         );
       }
@@ -61,7 +62,7 @@ class VerifyEmailController extends GetxController {
           imageUrl: CImages.successfullyRegistrationAnimation,
           title: CTexts.yourAccountCreatedTitle,
           subtitle: CTexts.yourAccountCreatedSubTitle,
-          onPressed: () => AuthRepository.instance.screenDirect(),
+          onPressed: () => Get.offAll(() => const SignInView()),
         ),
       );
     }

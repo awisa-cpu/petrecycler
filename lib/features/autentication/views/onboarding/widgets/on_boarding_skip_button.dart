@@ -4,7 +4,6 @@ import 'package:petrecycler/features/autentication/controllers/onboarding_contro
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/device_utility/device_utility.dart';
 
-
 class OnBoardingSkipButton extends StatelessWidget {
   const OnBoardingSkipButton({
     super.key,
@@ -19,7 +18,10 @@ class OnBoardingSkipButton extends StatelessWidget {
     return Positioned(
       top: CDeviceUtility.getAppBarHeight(),
       right: CSizes.defaultSpace,
-      child: CustomTextButton(onPressed: controller.skipPage, text: 'Skip'),
+      child: CustomTextButton(
+        onPressed: controller.skipPage,
+        text: 'Skip',
+      ),
     );
   }
 }

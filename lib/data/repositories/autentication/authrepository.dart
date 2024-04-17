@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:petrecycler/data/repositories/users_repo/user_repository.dart';
+import 'package:petrecycler/data/services/notification_service/notification_service.dart';
 import 'package:petrecycler/features/autentication/views/onboarding/onboarding.dart';
 import 'package:petrecycler/features/autentication/views/sign_in/sign_in.dart';
 import 'package:petrecycler/features/autentication/views/sign_up/verify_email.dart';
@@ -24,7 +25,6 @@ class AuthRepository extends GetxController {
   final storageBucket = GetStorage();
 
   ///methods
-
   @override
   void onReady() {
     super.onReady();
@@ -36,7 +36,7 @@ class AuthRepository extends GetxController {
     final user = _auth.currentUser;
     if (user != null) {
       final userInstance = storageBucket.read('currentUser');
-      final userRole = userInstance['userRole'];
+      final userRole = userInstance?['userRole'] ?? 'none';
       //then check if email is verified
       if (user.emailVerified) {
         //autorize based on roles :todo
@@ -44,6 +44,8 @@ class AuthRepository extends GetxController {
           Get.offAll(() => const AdminNavigationMenu());
         } else if (userRole == 'user') {
           Get.offAll(() => const UserNavigationMenu());
+        } else {
+          Get.offAll(() => const SignInView());
         }
       } else {
         Get.off(() => const VerifyEmailScreen());
@@ -113,6 +115,9 @@ class AuthRepository extends GetxController {
       //fetch and store  the role in the local storage user
       final userRecord = await userRepo.fetchUserRecord();
       storageBucket.write('currentUser', userRecord.toJson());
+
+      //initilize and send device token to database
+      await NotificationService.instance.fetchAndStoreInDb();
 
       return credential;
     } on CustomFirebaseException catch (e) {

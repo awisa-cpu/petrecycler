@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart';
-import 'package:petrecycler/features/user/user_notifications_management/views/notification_view.dart';
-import 'package:petrecycler/common/widgets/custom_activity.dart';
+import 'package:petrecycler/features/user/user_notifications_management/views/user_notifications_view.dart';
 import 'package:petrecycler/features/user/user_personalization/controllers/user_controller.dart';
+import 'package:petrecycler/utilities/constants/colors.dart';
+import 'package:petrecycler/utilities/constants/images_texts.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
-import 'package:petrecycler/utilities/shimmers/custom_shimmer_effect.dart';
-import '../../../../../common/widgets/custom_image_widget.dart';
 import 'widgets/custom_bottle_progress_report.dart';
+import 'widgets/custom_home_recent_activities.dart';
 import 'widgets/custom_home_slider.dart';
-import '../../../../../common/widgets/custom_recent_activites.dart';
 import '../../../../../common/widgets/custom_notification_view.dart';
+import 'widgets/custom_user_home_section_header.dart';
 
 class UserHomeView extends StatelessWidget {
   const UserHomeView({super.key});
@@ -23,20 +23,33 @@ class UserHomeView extends StatelessWidget {
     //
     return Scaffold(
       appBar: AppBar(
-        leading: CustomImageWidget(
-          profileImage: userController.user.value.profilePicture,
-          isNetWorkImage: true,
+        leading:
+            // userController.user.value.profilePicture != null
+            //     ? CustomImageWidget(
+            //         profileImage: userController.user.value.profilePicture!,
+            //         isNetWorkImage: true,
+            //       )
+            //     :
+            const CircleAvatar(
+          radius: 40,
+          backgroundColor: CColors.mainColor,
+          child: CircleAvatar(
+            backgroundImage: AssetImage(CImages.userProfile),
+            radius: 35,
+          ),
         ),
         title: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            userController.isProfileNameLoading.value
-                ? const CustomShimmerEffect(width: 80, height: 15)
-                : Text(
-                    'Hi, ${userController.user.value.firstName}',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
+            // userController.isProfileNameLoading.value
+            //     ? const CustomShimmerEffect(width: 80, height: 15)
+            //     :
+
+            Text(
+              'Hi, ${userController.user.value.firstName ?? userController.currentUserFromLocal['firstName']}',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             Text(
               CTexts.letsContribute,
               style: Theme.of(context).textTheme.bodyMedium,
@@ -45,7 +58,7 @@ class UserHomeView extends StatelessWidget {
         ),
         actions: [
           GestureDetector(
-            onTap: () => Get.to(() => const NotificationView()),
+            onTap: () => Get.to(() => const UserNotificationsView()),
             child: const CustomNotificationIcon(),
           )
         ],
@@ -89,20 +102,13 @@ class UserHomeView extends StatelessWidget {
 
             ///section 4: recent activities
             const SizedBox(height: CSizes.lg),
-            Text(
-              CTexts.recentAct,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+
+            //
+            const CustomUserHomeSectionHeader(),
 
             const SizedBox(height: CSizes.md),
 
-            const CustomRecentActivites(
-              itemCount: 4,
-              builder: CustomActivity(
-                title: 'Request completed',
-                subTitle: 'Pickup date set',
-              ),
-            )
+            const CustomHomeRecentActivities()
           ],
         ),
       ),

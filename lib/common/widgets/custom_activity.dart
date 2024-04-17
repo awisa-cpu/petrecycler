@@ -7,12 +7,13 @@ class CustomActivity extends StatelessWidget {
     required this.title,
     required this.subTitle,
     this.leading,
-    this.trailing,
+    this.trailing, this.backgroundColor,
   });
   final String title;
   final String subTitle;
   final Widget? leading;
   final Widget? trailing;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,8 @@ class CustomActivity extends StatelessWidget {
       isThreeLine: true,
       enableFeedback: false,
       trailing: trailing ??
-          const CustomRoundedContainer(
-            backgroundColor: Colors.green,
+        CustomRoundedContainer(
+            backgroundColor: backgroundColor??Colors.green,
             width: 15,
             height: 15,
             radius: 40,

@@ -5,8 +5,7 @@ class CImages {
   static const String sorting = 'assets/images/sorting.png';
   static const String adminProfile = 'assets/images/profile/user.png';
   static const String petbottles = 'assets/images/petbottles.jpg';
-  static const String userProfile =
-      'assets/images/profile/user_profile_image.jpeg';
+  static const String userProfile = 'assets/images/profile/user_profile_image.jpeg';
   static const String requestBackground = 'assets/banners/background.jpg';
 
   //animations

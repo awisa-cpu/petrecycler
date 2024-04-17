@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
 import 'package:petrecycler/data/repositories/users_repo/user_repository.dart';
@@ -19,17 +20,34 @@ class UserController extends GetxController {
   final userRespository = Get.put(UserRepository());
   Rx<bool> imageUploading = false.obs;
   Rx<bool> isProfileNameLoading = false.obs;
+  Rx<bool> isFetchingAdmin = false.obs;
   Rx<bool> hidePassword = false.obs;
   Rx<UserModel> user = UserModel.empty().obs;
+  Rx<UserModel> admin = UserModel.empty().obs;
   final verifyEmailCon = TextEditingController();
   final verifyPasswordCon = TextEditingController();
   GlobalKey<FormState> reAuthFormKey = GlobalKey<FormState>();
+  final currentUserFromLocal = GetStorage().read('currentUser');
 
   //
   @override
   void onInit() {
     super.onInit();
     fetchUserRecord();
+    getAdmin();
+  }
+
+  Future<void> getAdmin() async {
+    try {
+      isFetchingAdmin.value = true;
+
+      final admin = await userRespository.getFirstAdmin();
+      this.admin.value = admin;
+    } catch (e) {
+      admin(UserModel.empty());
+    } finally {
+      isFetchingAdmin.value = false;
+    }
   }
 
   ///fetch user record from the firestore database

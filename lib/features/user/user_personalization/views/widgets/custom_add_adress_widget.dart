@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:petrecycler/features/user/user_pet_management/views/widgets/custom_request_title_with_icon.dart';
+import 'package:petrecycler/features/user/user_notifications_management/views/widgets/custom_request_title_with_icon.dart';
 import 'package:petrecycler/features/user/user_personalization/views/widgets/custom_add_address_form.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 

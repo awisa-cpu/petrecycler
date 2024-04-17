@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
-import 'package:petrecycler/features/user/user_pet_management/controllers/user_pet_request_controller.dart';
+import 'package:petrecycler/features/user/user_notifications_management/controllers/user_pickup_request_controller.dart';
+import 'package:petrecycler/features/user/user_personalization/controllers/user_controller.dart';
 import 'package:petrecycler/utilities/constants/colors.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/validators/validators.dart';
@@ -13,7 +14,8 @@ class CustomPetRequestForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final petController = Get.put(UserPetRequestController());
+    final petController = Get.put(UserPickupRequestController());
+    final controller = UserController.instance;
 
     //
     return Form(
@@ -62,7 +64,7 @@ class CustomPetRequestForm extends StatelessWidget {
             controller: petController.phoneNumberCon,
             validator: CValidators.validatePhoneNumber,
             decoration: const InputDecoration(
-              hintText: '08128824153 ',
+              hintText: 'e.g 08128824153 ',
               prefixIcon: Icon(
                 Icons.phone,
                 color: CColors.mainColor,
@@ -75,8 +77,12 @@ class CustomPetRequestForm extends StatelessWidget {
 
           //
           CustomEButton(
-            onPressed: petController.requestPickup,
-            text: 'request a pickup',
+            onPressed: () {
+              controller.isFetchingAdmin.value
+                  ? null
+                  : petController.requestPickup();
+            },
+            text: controller.isFetchingAdmin.value ? '' : 'Request Pickup',
             addIcon: false,
           )
         ],

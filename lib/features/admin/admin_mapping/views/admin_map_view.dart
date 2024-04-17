@@ -8,9 +8,9 @@ class AdminMapView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Welcome To Map View'),
+        title: const Text('Map View'),
       ),
-      body: const Center(child: Text('Map View details')),
+      body: const Center(child: Text('Coming soon...')),
     );
   }
 }

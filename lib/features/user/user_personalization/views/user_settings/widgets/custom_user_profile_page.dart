@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petrecycler/utilities/constants/colors.dart';
+import 'package:petrecycler/utilities/constants/images_texts.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
-
-import '../../../../../../common/widgets/custom_image_widget.dart';
 
 class CustomProfilePage extends StatelessWidget {
   const CustomProfilePage({
@@ -22,7 +21,17 @@ class CustomProfilePage extends StatelessWidget {
       children: [
         Column(
           children: [
-            CustomImageWidget(profileImage: profileImage),
+            // profileImage != null
+            //     ? CustomImageWidget(profileImage: profileImage!)
+            //     :
+            const CircleAvatar(
+              radius: 40,
+              backgroundColor: CColors.mainColor,
+              child: CircleAvatar(
+                backgroundImage: AssetImage(CImages.userProfile),
+                radius: 35,
+              ),
+            ),
             const SizedBox(height: CSizes.sm),
             Text(userEmail),
             TextButton(

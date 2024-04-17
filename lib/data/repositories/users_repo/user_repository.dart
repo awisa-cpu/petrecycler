@@ -60,12 +60,12 @@ class UserRepository extends GetxController {
   }
 
 //fetch all users
-  Future<List<UserModel>> getAllUsers() async {
+  Future<UserModel> getFirstAdmin() async {
     try {
-      final querySnapshot = await _db.collection('Users').get();
+      final querySnapshot = await _db.collection('Users').where("userRole",isEqualTo: 'admin').get();
 
       final docs = querySnapshot.docs;
-      return docs.map((doc) => UserModel.fromFirestoreDb(doc)).toList();
+      return docs.map((doc) => UserModel.fromFirestoreDb(doc)).toList().first;
     } on CustomFirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
     } on CustomFirebaseAuthExc catch (e) {

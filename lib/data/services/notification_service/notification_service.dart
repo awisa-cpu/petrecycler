@@ -1,55 +1,84 @@
-import 'dart:developer';
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
+import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
+import 'package:petrecycler/features/admin/admin_notifications_management/controllers/admin_notifications_controller.dart';
+import 'package:petrecycler/features/user/user_notifications_management/controllers/user_notifications_controller.dart';
+import 'package:petrecycler/features/user/user_notifications_management/model/fcm_notification_model.dart';
+import 'package:petrecycler/utilities/constants/request_url.dart';
+import 'package:logger/logger.dart';
 
 class NotificationService extends GetxController {
   static NotificationService get instance => Get.find();
 
   final firebaseMessenger = FirebaseMessaging.instance;
+  final _db = FirebaseFirestore.instance;
+  final _auth = Get.put(AuthRepository());
 
   Future<void> initNotifications() async {
-    //request permission from user
+    //request permission from user: inside the main
     await firebaseMessenger.requestPermission();
 
+    //
+    _initPushNotifications();
+  }
+
+  Future<void> fetchAndStoreInDb() async {
     //fetch the FCM token for this user device
     final userFcmToken = await firebaseMessenger.getToken();
 
-    //this would normally be sent to the server: but lets print
-    log('Token: $userFcmToken');
-
-    //
-    initPushNotifications();
+    //this would normally be sent to the server
+    if (userFcmToken != null) {
+      _saveUserDeviceTokenToDb(userFcmToken);
+    }
   }
 
-  //fucntion to handle received messages
+  void onTokenRefresh() {
+    //this is called in the App widget
+    firebaseMessenger.onTokenRefresh.listen(
+      (event) => _saveUserDeviceTokenToDb,
+    );
+  }
+
+  //function to handle received messages
   void _handleIncomingMesage(RemoteMessage? message) {
-    //if message is null, do nothin
+    //if message is null, do nothing
     if (message == null) return;
+    Logger().i(message.toMap());
 
     //check the message.data if the message is for admin or user
-    // String notificationType = message.data['notificationType'];..
+    String notificationType = message.data['notificationType'];
 
-    // if (notificationType == 'adminNotification') {..
-    // Show the notification in the admin interface
-    // Example: adminProvider.showNotification(message);
-    // } else if (notificationType == 'userNotification') {..
-    // Show the notification in the user interface
-    // Example: userProvider.showNotification(message);
-    // }..
-
-    //navigate to a new screen when message is received and user taps notifications
-    log('Remote Message: ${message.toMap()}');
-    // Get.to(() => const NotificationView(), arguments: message);
+    if (notificationType == 'adminNotification') {
+      final adminController = Get.put(AdminNotificationsController());
+      adminController.handleAdminNotication(message);
+    } else if (notificationType == 'userNotification') {
+      final userNotiController = Get.put(UserNotificationsController());
+      userNotiController.handleUserNotifications(message);
+    }
   }
 
-  Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
-    //Process the message as needed.
-    log('Remote Message: $message');
-  }
+  // Future<void> _firebaseMessagingBackgroundHandler(
+  //   RemoteMessage message,
+  // ) async {
+  //   //check the message.data if the message is for admin or user
+  //   String notificationType = message.data['notificationType'];
 
-  //function to initialize background settings
-  Future<void> initPushNotifications() async {
+  //   if (notificationType == 'adminNotification') {
+  //     final adminController = Get.put(AdminNotificationsController());
+  //     adminController.handleAdminNotication(message);
+  //   } else if (notificationType == 'userNotification') {
+  //     final userNotiController = Get.put(UserNotificationsController());
+  //     userNotiController.handleUserNotifications(message);
+  //   }
+  // }
+
+  ///function to initialize background settings
+  Future<void> _initPushNotifications() async {
     //handle notifications if the app was terminated and now opened
     firebaseMessenger
         .getInitialMessage()
@@ -64,6 +93,60 @@ class NotificationService extends GetxController {
         .listen((message) => _handleIncomingMesage(message));
 
     //handle notifications when the app is in background or terminated
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
+
+//save device token to db
+  void _saveUserDeviceTokenToDb(String token) async {
+    try {
+      await _db.collection('UserDeviceTokens').doc(_auth.authUser!.uid).set(
+        {'token': token, 'dateTime': DateTime.now().toString()},
+      );
+    } catch (e) {
+      throw 'Something went wrong $e';
+    }
+  }
+
+//send notification to admin
+  Future<void> sendNotificationRequest({
+    required String userId,
+    required String title,
+    required String body,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      final notification = FcmNotificationModel(
+        userId: userId,
+        title: title,
+        body: body,
+        data: FcmData.fromJson(data),
+      ).toJson();
+
+      Logger().d(notification);
+
+      final response = await http.post(
+        Uri.parse(baseUrl),
+        body: jsonEncode(notification),
+      );
+
+      //
+      Logger().i("Encoded ${jsonEncode(notification)}");
+
+      Logger().i("Response:${response.body}");
+
+      if (response.statusCode != 200) {
+        throw Exception(
+            'Failed to send notification. Status code: ${response.statusCode}');
+      }
+    } on TimeoutException catch (e) {
+      Logger().e('Failed to send notification', error: e);
+      throw Exception('Request Timed out');
+    } on SocketException catch (e) {
+      Logger().e('Could not conect', error: e);
+      throw Exception("Error connecting to the network");
+    } catch (e) {
+      Logger().e('Error message: ', error: e);
+      throw Exception('something went wrong');
+    }
   }
 }

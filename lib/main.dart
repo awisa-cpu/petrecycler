@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:petrecycler/app.dart';
 import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
+import 'package:petrecycler/data/services/notification_service/notification_service.dart';
 import 'package:petrecycler/firebase_options.dart';
 
 ///this is the root and where initializations of needed services occur
@@ -21,8 +22,7 @@ void main() async {
 
   await initFirebase();
 
-  // final controller = Get.put(NotificationService());
-  // controller.initNotifications();
+  await Get.put(NotificationService()).initNotifications();
 
   runApp(const MyApp());
 }

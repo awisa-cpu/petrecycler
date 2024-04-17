@@ -23,7 +23,7 @@ class CTexts {
   static const String firstName = 'First name';
   static const String surName = 'Surname';
   static const String continu = 'Continue';
-  static const String phoneNo =  'Phone number';
+  static const String phoneNo = 'Phone number';
   static const String createRecyclerAccount =
       'Fill the form to create a recycler account';
   static const String createUserAccount =
@@ -42,18 +42,25 @@ class CTexts {
 
   //
   static const String recycleInstructions =
-      'You dont have to dispose off your pet bottles anyhow anymore, why dont you join the movement let us make our environment free of trash as possible as we can. Follow these instructions to book a pick up reuest.';
+      "You don't have to dispose off your pet bottles anyhow anymore, why don't you join the movement let us make our environment free of trash as possible as we can. Follow these instructions to book a pick up request.";
   //home
   static const String letsRecycle = "Let's Recycle";
   static const String letsContribute = "Let's contribute to our earth";
   static const String ourMission = 'Our Mission';
-  static const String progress =  'Progress';
-  static const String recentAct =  'Recent Activities';
-  static const String workingTogether =  "Working Together To Clean Our Environment";
-  
+  static const String progress = 'Progress';
+  static const String recentAct = 'Recent Activities';
+  static const String workingTogether =
+      "Working Together To Clean Our Environment";
+
   //delete account
   static const String yourAccountDelete =
       'Your account will be permanently removed from the application. All your data will be lost';
   static const String deleteAcc = 'Delete Account';
   static const String verify = 'Verify';
+
+  //request status
+  static const String pending = 'pending';
+  static const String accepted = 'accepted';
+  static const String completed = 'completed';
+  static const String declined = 'declined';
 }

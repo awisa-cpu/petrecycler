@@ -133,10 +133,13 @@ class SignInController extends GetxController {
   }
 
   void showLogoutDialog() async {
+
+    
     await showDialog(
       context: Get.context!,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: const Text('Logout'),
           content: const Text('Are you sure you want to logout? '),
           actions: [

@@ -2,9 +2,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/features/admin/admin_dashboard/views/admin_home/admin_home_view.dart';
-import 'package:petrecycler/features/admin/admin_dashboard/views/admin_request_manager_view.dart';
+import 'package:petrecycler/features/admin/admin_notifications_management/views/admin_request_manager_view.dart';
 import 'package:petrecycler/features/admin/admin_personalization/views/admin_settings/admin_settings_view.dart';
-import 'package:petrecycler/features/admin/admin_mapping/views/admin_map_view.dart';
 import 'package:petrecycler/utilities/constants/colors.dart';
 import '../../../common/widgets/icons/custom_nav_icon.dart';
 
@@ -27,14 +26,14 @@ class AdminNavigationMenu extends StatelessWidget {
           animationDuration: const Duration(milliseconds: 280),
           onTap: controller.onDestinationSelected,
           items: const [
-            CustomNavIcon(
-              icon: Icons.dashboard,
-            ),
-            CustomNavIcon(
-              icon: Icons.location_on,
-            ),
+            // CustomNavIcon(
+            //   icon: Icons.location_on,
+            // ),
             CustomNavIcon(
               icon: Icons.notifications,
+            ),
+            CustomNavIcon(
+              icon: Icons.dashboard,
             ),
             CustomNavIcon(
               icon: Icons.person,
@@ -51,7 +50,7 @@ class AdminNavigationController extends GetxController {
   static AdminNavigationController get instance => Get.find();
 
   //varibales
-  RxInt selectedIndex = 0.obs;
+  RxInt selectedIndex = 1.obs;
 
   //methods
   void onDestinationSelected(int index) {
@@ -61,12 +60,13 @@ class AdminNavigationController extends GetxController {
   Widget displayScreen(int currentIndex) {
     switch (currentIndex) {
       case 0:
-        return const AdminHomeView();
-      case 1:
-        return const AdminMapView();
-      case 2:
         return const AdminRequestManager();
-      case 3:
+
+      // case 1:
+      //   return const AdminMapView();
+      case 1:
+        return const AdminHomeView();
+      case 2:
         return const AdminSettingsView();
       default:
         return const Scaffold(

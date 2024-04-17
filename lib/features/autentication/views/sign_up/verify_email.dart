@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart';
 import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
-import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
 import 'package:petrecycler/features/autentication/controllers/verify_email_controller.dart';
+import 'package:petrecycler/features/autentication/views/sign_in/sign_in.dart';
 import 'package:petrecycler/utilities/constants/images_texts.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
@@ -30,8 +30,7 @@ class VerifyEmailScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            onPressed: () =>
-                Get.offAll(() => AuthRepository.instance.signOutUser()),
+            onPressed: () => Get.offAll(() => const SignInView()),
             icon: const Icon(CupertinoIcons.clear),
             enableFeedback: false,
           )
