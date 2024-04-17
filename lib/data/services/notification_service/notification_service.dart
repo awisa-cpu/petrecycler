@@ -108,31 +108,16 @@ class NotificationService extends GetxController {
   }
 
 //send notification to admin
-  Future<void> sendNotificationRequest({
-    required String userId,
-    required String title,
-    required String body,
-    required Map<String, dynamic> data,
-  }) async {
+  Future<void> sendNotificationRequest(
+      FcmNotificationModel notification) async {
     try {
-      final notification = FcmNotificationModel(
-        userId: userId,
-        title: title,
-        body: body,
-        data: FcmData.fromJson(data),
-      ).toJson();
-
-      Logger().d(notification);
+      Logger().i(notification.toJson());
 
       final response = await http.post(
         Uri.parse(baseUrl),
-        body: jsonEncode(notification),
+        headers: {'Content-Type': 'application/json'},
+        body: notification.toJson(),
       );
-
-      //
-      Logger().i("Encoded ${jsonEncode(notification)}");
-
-      Logger().i("Response:${response.body}");
 
       if (response.statusCode != 200) {
         throw Exception(

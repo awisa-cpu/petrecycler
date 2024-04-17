@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/data/services/network_service/network_manager.dart';
 import 'package:petrecycler/data/services/notification_service/notification_service.dart';
+import 'package:petrecycler/features/user/user_notifications_management/model/fcm_notification_model.dart';
 import 'package:petrecycler/features/user/user_notifications_management/model/request_model.dart';
 import 'package:petrecycler/features/user/user_notifications_management/views/user_request_notification_view.dart';
 import 'package:petrecycler/utilities/loaders/overlay_loading_screen.dart';
@@ -73,14 +74,17 @@ class UserPickupRequestController extends GetxController {
 
         await _firebaseDb.collection('Requests').doc().set(request.toJson());
 
-        // userId: UserController.instance.admin.value.uid,
-        // Logger().i('admin Id: ${UserController.instance.admin.value.uid}');
-        await NotificationService.instance.sendNotificationRequest(
+        final notification = FcmNotificationModel(
           userId: 'odYGQdEFOiUARRkKZOTNDH3Jjav1',
           title: "New notification",
           body: "Pickup request from ${AuthRepository.instance.authUser!.uid}",
-          data: {"notificationType": "adminNotification"},
+          data: FcmData(notificationType: 'adminNotification'),
         );
+
+        // userId: UserController.instance.admin.value.uid,
+        // Logger().i('admin Id: ${UserController.instance.admin.value.uid}');
+        await NotificationService.instance
+            .sendNotificationRequest(notification);
 
         // notify the user of successful operation
         CustomSnackBars.showSuccessSnackBar(

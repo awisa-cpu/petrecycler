@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:petrecycler/data/services/network_service/network_manager.dart';
 import 'package:petrecycler/data/services/notification_service/notification_service.dart';
 import 'package:petrecycler/features/admin/admin_notifications_management/controllers/admin_notifications_controller.dart';
+import 'package:petrecycler/features/user/user_notifications_management/model/fcm_notification_model.dart';
 import 'package:petrecycler/features/user/user_notifications_management/model/request_model.dart';
 import 'package:petrecycler/utilities/loaders/overlay_loading_screen.dart';
 import 'package:petrecycler/utilities/snackbars/custom_snackbars.dart';
@@ -84,18 +85,20 @@ class AdminReplyController extends GetxController {
         AdminNotificationsController.instance
             .updateLocalList(request, newStatus);
 
-        //call the method to send request to the user
-        // add the deatisl of the reply from admin
-        await NotificationService.instance.sendNotificationRequest(
+        final notification = FcmNotificationModel(
           userId: request.senderId,
           title: 'New request',
           body: 'update on ${request.uid} request',
-          data: {
-            'notificationType': 'userNotification',
-            'dop': scheduleReplyDate.text.trim(),
-            'top': scheduleReplyTime.text.trim()
-          },
+          data: FcmData(
+              notificationType: 'userNotification',
+              dop: scheduleReplyDate.text.trim(),
+              top: scheduleReplyTime.text.trim()),
         );
+
+        //call the method to send request to the user
+        // add the deatisl of the reply from admin
+        await NotificationService.instance
+            .sendNotificationRequest(notification);
 
         CustomOverlayLoader().stopLoader();
         Navigator.pop(Get.context!);
