@@ -15,7 +15,7 @@ class UserModel {
   final String? lga;
   final String? rcn;
   final String userRole;
-  String? profilePicture;
+  String profilePicture;
 
   //default constructor
   UserModel({
@@ -30,7 +30,7 @@ class UserModel {
     this.lga,
     this.rcn,
     required this.userRole,
-    this.profilePicture,
+    required this.profilePicture,
   });
 
   //default constructor
@@ -43,6 +43,7 @@ class UserModel {
         address: '',
         email: '',
         userRole: 'none',
+        profilePicture: ''
       );
 
   //toJson
@@ -58,7 +59,7 @@ class UserModel {
       'lga': lga ?? '',
       'rcn': rcn ?? '',
       'userRole': userRole,
-      'profilePicture': profilePicture ?? ''
+      'profilePicture': profilePicture 
     };
   }
 

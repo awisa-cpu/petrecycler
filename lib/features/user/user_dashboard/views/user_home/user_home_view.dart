@@ -42,10 +42,7 @@ class UserHomeView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // userController.isProfileNameLoading.value
-            //     ? const CustomShimmerEffect(width: 80, height: 15)
-            //     :
-
+          
             Text(
               'Hi, ${userController.user.value.firstName ?? userController.currentUserFromLocal['firstName']}',
               style: Theme.of(context).textTheme.titleLarge,

@@ -114,7 +114,7 @@ class SignUpController extends GetxController {
         lga: userType == 'admin' ? lga.text.trim() : '',
         rcn: userType == 'admin' ? rcn.text.trim() : '',
         userRole: userType.trim(),
-        profilePicture: credential.user!.photoURL);
+        profilePicture: credential.user!.photoURL??'');
 
     //store in the firestore databse
     final userRepo = Get.put(UserRepository());

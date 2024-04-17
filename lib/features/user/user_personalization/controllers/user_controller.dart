@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:logger/logger.dart';
 import 'package:petrecycler/data/repositories/autentication/authrepository.dart';
 import 'package:petrecycler/data/repositories/users_repo/user_repository.dart';
 import 'package:petrecycler/data/services/network_service/network_manager.dart';
@@ -220,8 +221,9 @@ class UserController extends GetxController {
             message: 'Your Profile Image has been updated');
       }
     } catch (e) {
+      Logger().i('message', error: e);
       CustomSnackBars.showErrorSnackBar(
-          title: 'Oh Snap!', message: e.toString());
+          title: 'Oh Snap!', message: 'Something went wrong');
     } finally {
       imageUploading.value = false;
     }

@@ -29,13 +29,13 @@ class CustomBottleProgressReport extends StatelessWidget {
                 ),
                 const SizedBox(height: CSizes.md),
                 Text(
-                  '4 / 10 items',
+                  '4 / 100 items',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: CSizes.md),
                 const LinearProgressIndicator(
                   color: CColors.primary,
-                  value: 0.4,
+                  value: 0.1,
                   minHeight: 6,
                 )
               ],
