@@ -1,3 +1,4 @@
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -21,6 +22,9 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await initFirebase();
+
+  await FirebaseAppCheck.instance
+      .activate(androidProvider: AndroidProvider.debug);
 
   await Get.put(NotificationService()).initNotifications();
 

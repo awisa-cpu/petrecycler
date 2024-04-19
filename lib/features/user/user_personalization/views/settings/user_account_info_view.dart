@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:petrecycler/common/widgets/buttons/custom_icon_button.dart';
 import 'package:petrecycler/utilities/constants/colors.dart';
 
-import '../widgets/account_data.dart';
-import '../widgets/personal_data.dart';
+import '../widgets/user_account_data.dart';
+import '../widgets/user_personal_data.dart';
 
-class AccountInformationView extends StatelessWidget {
-  const AccountInformationView({
+class UserAccountInformationView extends StatelessWidget {
+  const UserAccountInformationView({
     super.key,
   });
 
@@ -54,8 +54,8 @@ class AccountInformationView extends StatelessWidget {
           ],
           body: const TabBarView(
             children: [
-              AccountData(),
-              PersonalData(),
+              UserAccountData(),
+              UserPersonalData(),
             ],
           ),
         ),

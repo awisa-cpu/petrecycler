@@ -3,17 +3,15 @@ import 'package:get/get.dart';
 import 'package:petrecycler/common/widgets/buttons/custom_icon_button.dart';
 import 'package:petrecycler/utilities/constants/colors.dart';
 
-import 'widgets/account_data.dart';
-import 'widgets/personal_data.dart';
+import 'widgets/admin_account_data.dart';
+import 'widgets/admin_company_data.dart';
 
 class AdminAccountInformationView extends StatelessWidget {
   const AdminAccountInformationView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return 
-    
-    DefaultTabController(
+    return DefaultTabController(
       length: 2,
       child: Scaffold(
         body: NestedScrollView(
@@ -49,8 +47,8 @@ class AdminAccountInformationView extends StatelessWidget {
           ],
           body: const TabBarView(
             children: [
-              AccountData(),
-              PersonalData(),
+              AdminAccountData(),
+              AdminCompanyData(),
             ],
           ),
         ),

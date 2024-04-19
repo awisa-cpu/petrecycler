@@ -24,24 +24,6 @@ class CustomHomeRequestOverview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               CustomOverviewWidget(
-                backgroundColor: CColors.warning,
-                icon: Icons.dashboard_outlined,
-                title: 'Accepted Requests',
-                count: controller.acceptedRequests.length.toString(),
-              ),
-              CustomOverviewWidget(
-                backgroundColor: CColors.success,
-                icon: Icons.check_circle,
-                title: 'Completed Requests',
-                count: controller.completedRequests.length.toString(),
-              ),
-            ],
-          ),
-          const SizedBox(height: CSizes.md - 3),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CustomOverviewWidget(
                 backgroundColor: CColors.mainColor,
                 icon: Icons.pending_actions,
                 title: 'Pending Requests',
@@ -52,6 +34,24 @@ class CustomHomeRequestOverview extends StatelessWidget {
                 icon: Icons.toc_rounded,
                 title: 'Declined Requests',
                 count: controller.declinedRequests.length.toString(),
+              ),
+            ],
+          ),
+          const SizedBox(height: CSizes.md - 3),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomOverviewWidget(
+                backgroundColor: CColors.warning,
+                icon: Icons.dashboard_outlined,
+                title: 'Accepted Requests',
+                count: controller.acceptedRequests.length.toString(),
+              ),
+              CustomOverviewWidget(
+                backgroundColor: CColors.success,
+                icon: Icons.check_circle,
+                title: 'Completed Requests',
+                count: controller.completedRequests.length.toString(),
               ),
             ],
           ),

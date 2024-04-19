@@ -1,3 +1,4 @@
+
 class CValidators {
   static String? validateEmptyText(String fieldName, String? value) {
     if (value == null || value.isEmpty) {
@@ -5,6 +6,18 @@ class CValidators {
     } else {
       return null;
     }
+  }
+
+  static String? validateBottleQuantity(String? text) {
+    if (text == null || text.isEmpty) {
+      return "Quantity of bottles required";
+    }
+
+    if (int.parse(text) < 120) {
+      return "must be 120 and above";
+    }
+
+    return null;
   }
 
   //validate email

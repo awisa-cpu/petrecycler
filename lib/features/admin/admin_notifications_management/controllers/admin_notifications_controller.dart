@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/features/admin/admin_navigation/admin_navigation_menu.dart';
@@ -11,18 +12,9 @@ import 'package:petrecycler/features/user/user_notifications_management/model/re
 import 'package:petrecycler/utilities/constants/colors.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/snackbars/custom_snackbars.dart';
-
 import '../views/widgets/custom_accept_requests_details.dart';
-import '../views/widgets/custom_request_reply_form.dart';
 import '../views/widgets/custom_show_requests_details.dart';
 
-/*ResponseModel
-uid
-adminId
-message
-timestamp
-requestId(id of original message)
-*/
 class AdminNotificationsController extends GetxController {
   static AdminNotificationsController get instance => Get.find();
 
@@ -75,7 +67,7 @@ class AdminNotificationsController extends GetxController {
   }
 
   void _onAdminTapNotificationMessage(RemoteMessage? message) {
-    if (message == null ) return;
+    if (message == null) return;
 
     //navigate user to home
     Get.to(() => const AdminNavigationMenu());
@@ -163,26 +155,7 @@ class AdminNotificationsController extends GetxController {
     );
   }
 
-  void acceptUserRequest(RequestModel request) async {
-    await showDialog(
-      context: Get.context!,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          title: const Text('Fill acceptance'),
-          content: SingleChildScrollView(
-            child: CustomRequestReplyForm(
-              request: request,
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   void declineUserRequest(RequestModel request) async {
-    final controller = AdminReplyController.instance;
-
     //
     await showDialog(
       barrierDismissible: false,
@@ -194,14 +167,66 @@ class AdminNotificationsController extends GetxController {
           content: const Text('Are you sure you want to decline?'),
           actions: [
             CustomEButton(
-                onPressed: () =>
-                    controller.adminReplyToRequest(request, 'declined'),
+                onPressed: () {
+                  Navigator.pop(Get.context!);
+                  verifyDeclineRequest(request);
+                },
                 text: 'Yes',
                 addIcon: false),
             const SizedBox(height: CSizes.md),
             CustomEButton(
               onPressed: () => Navigator.of(context).pop(),
               text: 'No',
+              addIcon: false,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void verifyDeclineRequest(RequestModel request) async {
+    final controller = Get.put(AdminReplyController());
+
+    //
+    await showDialog(
+      barrierDismissible: false,
+      context: Get.context!,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: const Text('Decline Response'),
+          content: const Text('Are you sure you want to decline?'),
+          actions: [
+            Form(
+              key: controller.adminDeclineKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Please provide the user with a reason for deccline',
+                      style: Theme.of(context).textTheme.bodyLarge),
+                  const SizedBox(height: CSizes.md),
+                  TextFormField(
+                    controller: controller.rejectionReason,
+                    decoration: const InputDecoration(
+                        labelText: 'Reason for rejection'),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: CSizes.lg),
+            CustomEButton(
+              onPressed: () {
+                controller.adminReplyToRequest(request, 'declined');
+                Navigator.pop(Get.context!);
+              },
+              text: 'Reply',
+              addIcon: false,
+            ),
+            const SizedBox(height: CSizes.md),
+            CustomEButton(
+              onPressed: () => Navigator.pop(Get.context!),
+              text: 'Cancel',
               addIcon: false,
             ),
           ],

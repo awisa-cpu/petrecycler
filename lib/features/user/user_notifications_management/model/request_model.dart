@@ -30,6 +30,7 @@ class RequestModel {
   final String bottleQuantity;
   final String address;
   final String phoneNumber;
+  final String senderName;
    bool readStatus;
  String? title;
   String? body;
@@ -42,6 +43,7 @@ class RequestModel {
     required this.bottleQuantity,
     required this.address,
     required this.phoneNumber,
+    required this.senderName,
     this.title,
     this.body,
     this.readStatus = false,
@@ -60,7 +62,8 @@ class RequestModel {
       'phoneNumber': phoneNumber,
       'title':title??'',
       'body':body??'',
-      'readStatus':readStatus
+      'readStatus':readStatus,
+      'senderName':senderName
 
     };
   }
@@ -79,7 +82,8 @@ class RequestModel {
         phoneNumber: data['phoneNumber'],
         title: data['title']??"",
         body: data['body']??"",
-        readStatus: data['readStatus']??false
+        readStatus: data['readStatus']??false,
+        senderName: data['senderName']
       );
     } else {
       return RequestModel(
@@ -90,7 +94,10 @@ class RequestModel {
           updatedAt: '',
           bottleQuantity: '',
           address: '',
-          phoneNumber: '');
+          phoneNumber: '',
+          senderName:'',
+          
+          );
     }
   }
 }

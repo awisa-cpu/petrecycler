@@ -1,10 +1,17 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
+import 'package:logger/web.dart';
 import 'package:petrecycler/data/services/network_service/network_manager.dart';
 import 'package:petrecycler/data/services/notification_service/notification_service.dart';
 import 'package:petrecycler/features/admin/admin_notifications_management/controllers/admin_notifications_controller.dart';
+import 'package:petrecycler/features/user/user_notifications_management/model/fcm_notification_model.dart';
 import 'package:petrecycler/features/user/user_notifications_management/model/request_model.dart';
+import 'package:petrecycler/utilities/formatters/input_formatters.dart';
 import 'package:petrecycler/utilities/loaders/overlay_loading_screen.dart';
 import 'package:petrecycler/utilities/snackbars/custom_snackbars.dart';
 
@@ -13,34 +20,48 @@ class AdminReplyController extends GetxController {
 
   //variables
   final GlobalKey<FormState> replyFommKey = GlobalKey<FormState>();
-  late final TextEditingController scheduleReplyDate;
-  late final TextEditingController scheduleReplyTime;
+  final GlobalKey<FormState> adminDeclineKey = GlobalKey<FormState>();
+  final rejectionReason = TextEditingController();
+  final dopController = TextEditingController();
+  final topController = TextEditingController();
   var selectedDate = DateTime.now();
-
-  void pickDate() async {
-    final DateTime? picked = await showDatePicker(
-      context: Get.context!,
-      initialDate: selectedDate,
-      firstDate: DateTime(2015, 8),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != selectedDate) {
-      selectedDate = picked;
-    }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    scheduleReplyDate = TextEditingController();
-    scheduleReplyTime = TextEditingController();
-  }
+  final adminReplyDate = ''.obs;
+  TimeOfDay? currentTime = TimeOfDay.now();
+  final adminReplyTime = ''.obs;
 
   @override
   void onClose() {
     super.onClose();
-    scheduleReplyDate.clear();
-    scheduleReplyTime.clear();
+    rejectionReason.dispose();
+    dopController.dispose();
+    topController.dispose();
+  }
+
+  void selectDateOfPickup() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: Get.context!,
+      initialDate: selectedDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    );
+
+    if (pickedDate != null && pickedDate != selectedDate) {
+      selectedDate = pickedDate;
+      final value = CFormatters.formatDate(selectedDate.toString());
+      adminReplyDate.value = value;
+      dopController.text = adminReplyDate.value;
+    }
+  }
+
+  void selectTimeOfPickup() async {
+    final pickedTime = await showTimePicker(
+        context: Get.context!, initialTime: TimeOfDay.now());
+
+    if (pickedTime != null && pickedTime != currentTime) {
+      currentTime = pickedTime;
+      adminReplyTime.value = currentTime!.format(Get.context!);
+      topController.text = adminReplyTime.value;
+    }
   }
 
   //methods
@@ -58,21 +79,13 @@ class AdminReplyController extends GetxController {
       }
 
       //check form details
-      if (replyFommKey.currentState != null) {
-        if (!replyFommKey.currentState!.validate()) {
-          CustomOverlayLoader().stopLoader();
-          return;
-        }
+      if (replyFommKey.currentState?.validate() != true) {
+        CustomOverlayLoader().stopLoader();
+        return;
       }
+      Logger().i('This function got here');
 
-      // FirebaseFirestore.instance
-      //     .collection("Requests")
-      //     .doc(request.uid)
-      //     .update({"status": newStatus});
-
-      // AdminNotificationsController.instance.updateLocalList(request, newStatus);
-
-      //update the pening request
+      //update the pending request
       FirebaseFirestore.instance.runTransaction((transaction) async {
         final fetchedRequest =
             FirebaseFirestore.instance.collection("Requests").doc(request.uid);
@@ -86,26 +99,41 @@ class AdminReplyController extends GetxController {
 
         //call the method to send request to the user
         // add the deatisl of the reply from admin
-        await NotificationService.instance.sendNotificationRequest(
+
+        final notification = FcmNotificationModel(
           userId: request.senderId,
-          title: 'New request',
-          body: 'update on ${request.uid} request',
-          data: {
-            'notificationType': 'userNotification',
-            'dop': scheduleReplyDate.text.trim(),
-            'top': scheduleReplyTime.text.trim()
-          },
+          title: "New notification",
+          body: "update on ${request.uid} request",
+          data: FcmData(
+            notificationType: 'userNotification',
+            dop: adminReplyDate.value.trim(),
+            top: adminReplyTime.value.trim(),
+            declineReason: rejectionReason.text.trim(),
+          ),
         );
 
+        await NotificationService.instance
+            .sendNotificationRequest(notification);
+
         CustomOverlayLoader().stopLoader();
-        Navigator.pop(Get.context!);
 
         CustomSnackBars.showSuccessSnackBar(
             title: 'Reply sent', message: 'request has been updated');
       });
 
       //inform the user with the pickup date and time and other relevant details
+    } on TimeoutException catch (e) {
+      Logger().i(e);
+      CustomOverlayLoader().stopLoader();
+      CustomSnackBars.showErrorSnackBar(
+          title: "Oh snap", message: "Time out, pls try again");
+    } on SocketException catch (e) {
+      Logger().i(e);
+      CustomOverlayLoader().stopLoader();
+      CustomSnackBars.showErrorSnackBar(
+          title: "Oh snap", message: "Error sending reply, pls try again");
     } catch (e) {
+      Logger().i(e);
       CustomOverlayLoader().stopLoader();
       CustomSnackBars.showErrorSnackBar(
           title: "Oh snap", message: "Reply couldnt be completed, try again");

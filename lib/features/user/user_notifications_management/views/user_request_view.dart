@@ -7,7 +7,7 @@ import 'package:petrecycler/features/user/user_notifications_management/views/us
 import 'package:petrecycler/utilities/constants/images_texts.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
-import 'widgets/custom_pickup_request_form.dart';
+import 'widgets/user_pickup_request_form.dart';
 import 'widgets/custom_request_title_with_icon.dart';
 
 class UserRequestView extends StatelessWidget {
@@ -15,8 +15,6 @@ class UserRequestView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     //
     return Scaffold(
       body: SingleChildScrollView(
@@ -69,7 +67,7 @@ class UserRequestView extends StatelessWidget {
                   const SizedBox(height: CSizes.lg),
 
                   //
-                  const CustomPetRequestForm(),
+                  const UserPickupRequestForm(),
                 ],
               ),
             )

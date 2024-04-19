@@ -24,9 +24,9 @@ class CustomAdminNotificationIcon extends StatelessWidget {
         child: Obx(
           () => CustomRoundedContainer(
             backgroundColor:
-                controller.unreadPendingRequestNotifications.value != 0
-                    ? Colors.red
-                    : Colors.green,
+                controller.unreadPendingRequestNotifications.value == 0
+                    ? Colors.green
+                    : Colors.red,
             width: 20,
             height: 20,
             alignment: Alignment.center,

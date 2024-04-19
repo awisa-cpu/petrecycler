@@ -34,7 +34,7 @@ class UserHomeView extends StatelessWidget {
           radius: 40,
           backgroundColor: CColors.mainColor,
           child: CircleAvatar(
-            backgroundImage: AssetImage(CImages.userProfile),
+            backgroundImage: AssetImage(CImages.adminProfile),
             radius: 35,
           ),
         ),
@@ -42,7 +42,6 @@ class UserHomeView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          
             Text(
               'Hi, ${userController.user.value.firstName ?? userController.currentUserFromLocal['firstName']}',
               style: Theme.of(context).textTheme.titleLarge,
@@ -101,7 +100,10 @@ class UserHomeView extends StatelessWidget {
             const SizedBox(height: CSizes.lg),
 
             //
-            const CustomUserHomeSectionHeader(),
+            CustomHomeSectionHeader(
+              title: CTexts.recentAct,
+              onPressed: () => Get.to(() => const UserNotificationsView()),
+            ),
 
             const SizedBox(height: CSizes.md),
 

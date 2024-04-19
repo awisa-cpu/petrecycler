@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/features/admin/admin_notifications_management/controllers/admin_notifications_controller.dart';
+import 'package:petrecycler/features/admin/admin_notifications_management/views/widgets/custom_request_reply_form.dart';
 import 'package:petrecycler/features/user/user_notifications_management/model/request_model.dart';
 import 'package:petrecycler/features/user/user_notifications_management/views/widgets/custom_request_title_with_icon.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
@@ -34,12 +35,12 @@ class CustomShowRequestsDetails extends StatelessWidget {
             //
             const SizedBox(height: CSizes.sm),
             Text(
-              'Sender Id',
+              'Sender Name',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: CSizes.sm),
             Text(
-              request.senderId,
+              request.senderName,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
 
@@ -76,7 +77,7 @@ class CustomShowRequestsDetails extends StatelessWidget {
                   child: CustomEButton(
                     onPressed: () {
                       Navigator.pop(Get.overlayContext!);
-                      notificationController.acceptUserRequest(request);
+                      Get.to(() => CustomRequestReplyForm(request: request));
                     },
                     text: 'Accept',
                     addIcon: true,
@@ -88,6 +89,7 @@ class CustomShowRequestsDetails extends StatelessWidget {
                   child: CustomEButton(
                     onPressed: () {
                       Navigator.pop(Get.overlayContext!);
+
                       notificationController.declineUserRequest(request);
                       //sends message to the user that request declined
                     },

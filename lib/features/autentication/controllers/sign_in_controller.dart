@@ -119,7 +119,7 @@ class SignInController extends GetxController {
     } catch (e) {
       CApploader.stopLoader();
       CustomSnackBars.showErrorSnackBar(
-          title: "Oh Snap", message: e.toString());
+          title: "Oh Snap", message: 'Check your credentials and try again');
     }
   }
 
@@ -133,8 +133,6 @@ class SignInController extends GetxController {
   }
 
   void showLogoutDialog() async {
-
-    
     await showDialog(
       context: Get.context!,
       builder: (context) {

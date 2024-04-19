@@ -68,23 +68,30 @@ dependencies:
   cloud_firestore: ^4.14.0
   firebase_messaging: ^14.8.1
   firebase_analytics: ^10.10.1
+  firebase_app_check: ^0.2.2+2
 
   #google
   google_sign_in: ^6.2.1
   google_maps_flutter: ^2.2.8
-  flutter_launcher_icons: ^0.13.1
 
   #--------------- ./ PACKAGES END ------------------#
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^3.0.1
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: "AppIcon"
+  image_path: "assets/logos/recycle.png"
+  min_sdk_android: 21
 
 flutter:
   uses-material-design: true
 
- 
   #--------------- LOCAL ASSETS ------------------#
   assets:
     - assets/animations/

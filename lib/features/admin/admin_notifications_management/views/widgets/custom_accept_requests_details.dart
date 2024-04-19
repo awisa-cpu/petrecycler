@@ -34,12 +34,12 @@ class CustomAcceptRequestsDetails extends StatelessWidget {
             //
             const SizedBox(height: CSizes.sm),
             Text(
-              'Sender Id',
+              'Sender Name',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: CSizes.sm),
             Text(
-              request.senderId,
+              request.senderName,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
 
@@ -74,10 +74,13 @@ class CustomAcceptRequestsDetails extends StatelessWidget {
               children: [
                 Flexible(
                   child: CustomEButton(
-                    onPressed: () => notificationController.adminReplyToRequest(
-                      request,
-                      "completed",
-                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      notificationController.adminReplyToRequest(
+                        request,
+                        "completed",
+                      );
+                    },
                     text: 'Yes, Complete',
                     addIcon: true,
                     icon: Iconsax.add,

@@ -46,6 +46,12 @@ class CustomUserNotification extends StatelessWidget {
             const SizedBox(height: CSizes.sm),
             Text(notification.message.data['top'] ?? ''),
             const SizedBox(height: CSizes.sm),
+            Text(
+              'Decline Reason',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            const SizedBox(height: CSizes.sm),
+            Text(notification.message.data['declineReason'] ?? ''),
           ],
         ),
       ),

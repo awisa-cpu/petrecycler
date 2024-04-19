@@ -10,6 +10,10 @@ import 'package:petrecycler/utilities/themes/custom_themes/textfield_theme.dart'
 class LightTheme {
   //light theme
   static ThemeData get lightTheme => ThemeData(
+        datePickerTheme: const DatePickerThemeData(
+          headerForegroundColor: CColors.mainColor,
+          backgroundColor: Colors.white,
+        ),
         useMaterial3: true,
         fontFamily: 'Poppins',
         brightness: Brightness.light,

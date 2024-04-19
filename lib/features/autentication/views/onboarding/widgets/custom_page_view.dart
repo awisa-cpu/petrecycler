@@ -17,31 +17,33 @@ class CustomPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(CSizes.md),
-      child: Column(
-        children: [
-          //Image
-          Image.asset(
-            image,
-            width: CDeviceUtility.getScreenWidth(context) * 0.8,
-            height: CDeviceUtility.getScreenHeight(context) * 0.6,
-          ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            //Image
+            Image.asset(
+              image,
+              width: CDeviceUtility.getScreenWidth(context) * 0.8,
+              height: CDeviceUtility.getScreenHeight(context) * 0.6,
+            ),
 
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleLarge,
-            textAlign: TextAlign.center,
-          ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
+            ),
 
-          //
-          const SizedBox(height: CSizes.spaceBtwItems),
+            //
+            const SizedBox(height: CSizes.spaceBtwItems),
 
-          //
-          Text(
-            subTitle,
-            style: Theme.of(context).textTheme.bodyMedium,
-            textAlign: TextAlign.center,
-          )
-        ],
+            //
+            Text(
+              subTitle,
+              style: Theme.of(context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
       ),
     );
   }

@@ -10,6 +10,7 @@ import 'package:petrecycler/features/admin/admin_personalization/views/settings/
 import 'package:petrecycler/features/user/user_personalization/controllers/user_controller.dart';
 import 'package:petrecycler/features/user/user_personalization/views/user_settings/widgets/custom_settings_option.dart';
 import 'package:petrecycler/features/user/user_personalization/views/user_settings/widgets/custom_user_profile_page.dart';
+import 'package:petrecycler/utilities/constants/images_texts.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 
 class AdminSettingsView extends StatelessWidget {
@@ -34,7 +35,9 @@ class AdminSettingsView extends StatelessWidget {
             CustomProfilePage(
               userEmail: userController.user.value.email,
               onPressed: userController.uploadUserProfilePicture,
-              profileImage: userController.user.value.profilePicture,
+              profileImage: userController.user.value.profilePicture.isEmpty
+                  ? CImages.adminProfile
+                  : userController.user.value.profilePicture,
             ),
 
             const SizedBox(height: CSizes.md),

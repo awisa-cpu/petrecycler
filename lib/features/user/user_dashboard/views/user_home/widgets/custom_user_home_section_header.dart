@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:petrecycler/features/user/user_notifications_management/views/user_notifications_view.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
-import 'package:petrecycler/utilities/constants/texts.dart';
 
-class CustomUserHomeSectionHeader extends StatelessWidget {
-  const CustomUserHomeSectionHeader({
+class CustomHomeSectionHeader extends StatelessWidget {
+  const CustomHomeSectionHeader({
     super.key,
+    required this.title,
+    required this.onPressed,
   });
+
+  final String title;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +17,13 @@ class CustomUserHomeSectionHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          CTexts.recentAct,
+          title,
           style: Theme.of(context).textTheme.titleLarge,
         ),
-    
+
         //
         GestureDetector(
-          onTap: () => Get.to(() => const UserNotificationsView()),
+          onTap: onPressed,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

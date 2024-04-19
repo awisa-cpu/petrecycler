@@ -3,6 +3,7 @@ import 'package:petrecycler/common/widgets/custom_activity.dart';
 import 'package:petrecycler/common/widgets/custom_rounded_containder.dart';
 import 'package:petrecycler/features/admin/admin_notifications_management/controllers/admin_notifications_controller.dart';
 import 'package:petrecycler/features/user/user_notifications_management/model/request_model.dart';
+import 'package:petrecycler/utilities/formatters/input_formatters.dart';
 
 class CustomRequestWidget extends StatelessWidget {
   const CustomRequestWidget({
@@ -39,7 +40,7 @@ class CustomRequestWidget extends StatelessWidget {
         children: [
           Text(request.bottleQuantity, style: style),
           Text(
-            request.createdAt,
+            CFormatters.formatDate(request.createdAt),
             style: style,
           ),
         ],

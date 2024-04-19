@@ -8,14 +8,13 @@ import 'package:petrecycler/features/user/user_personalization/views/user_settin
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/constants/texts.dart';
 
-class AccountData extends StatelessWidget {
-  const AccountData({super.key});
-  
+class UserAccountData extends StatelessWidget {
+  const UserAccountData({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AccountInfoController());
-     final userController = UserController.instance;
+    final userController = UserController.instance;
 
     //
     return Container(
@@ -45,7 +44,7 @@ class AccountData extends StatelessWidget {
             const SizedBox(height: CSizes.md),
             Obx(
               () => TextFormField(
-                  initialValue: userController.user.value.email,
+                initialValue: userController.user.value.email,
                 readOnly: true,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(

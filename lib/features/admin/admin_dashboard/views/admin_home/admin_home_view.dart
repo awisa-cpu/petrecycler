@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:petrecycler/common/styles/custom_layout_with_scroll_padding.dart';
 import 'package:petrecycler/common/widgets/custom_admin_notification_view.dart';
 import 'package:petrecycler/features/admin/admin_notifications_management/views/admin_request_manager_view.dart';
+import 'package:petrecycler/features/user/user_dashboard/views/user_home/widgets/custom_user_home_section_header.dart';
 import 'package:petrecycler/features/user/user_personalization/controllers/user_controller.dart';
 import 'package:petrecycler/utilities/constants/colors.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
@@ -71,17 +72,16 @@ class AdminHomeView extends StatelessWidget {
             const CustomHomeRequestBarData(),
 
             //section 3: Recent Activity
-            const SizedBox(height: CSizes.lg),
+            const SizedBox(height: CSizes.lg + 4),
 
-            Text(
-              'Recent Requests',
-              style: Theme.of(context).textTheme.titleLarge,
+            CustomHomeSectionHeader(
+              title: 'Recent Requests',
+              onPressed: () => Get.to(() => const AdminRequestManager()),
             ),
 
             const SizedBox(height: CSizes.md),
 
-           const  CustomAdminHomeRecentActivities(),
-
+            const CustomAdminHomeRecentActivities(),
           ],
         ),
       ),

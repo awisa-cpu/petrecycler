@@ -7,8 +7,8 @@ import 'package:petrecycler/utilities/constants/colors.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
 import 'package:petrecycler/utilities/validators/validators.dart';
 
-class CustomPetRequestForm extends StatelessWidget {
-  const CustomPetRequestForm({
+class UserPickupRequestForm extends StatelessWidget {
+  const UserPickupRequestForm({
     super.key,
   });
 
@@ -19,19 +19,18 @@ class CustomPetRequestForm extends StatelessWidget {
 
     //
     return Form(
-      key: petController.requestFormKey,
+      key: petController.bottleFormKey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Quanity of bottles'),
+          const Text('Quanity of bottles(must be 120 and above)'),
           const SizedBox(height: CSizes.sm),
           TextFormField(
             controller: petController.bottleQuantityCon,
-            validator: (value) =>
-                CValidators.validateEmptyText('Quantity of bottles', value),
+            validator: (value) => CValidators.validateBottleQuantity(value),
             decoration: const InputDecoration(
-              hintText: 'e.g 15',
+              hintText: 'e.g 120',
               prefixIcon: Icon(
                 Icons.water_drop_rounded,
                 color: CColors.mainColor,
