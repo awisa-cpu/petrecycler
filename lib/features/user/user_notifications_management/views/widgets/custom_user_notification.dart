@@ -28,30 +28,45 @@ class CustomUserNotification extends StatelessWidget {
             const SizedBox(height: CSizes.sm),
             const Divider(),
             const SizedBox(height: CSizes.sm),
-            Text(notification.message.notification?.title ?? ''),
+            Text(notification.message.notification?.title ?? '',
+                style: Theme.of(context).textTheme.bodyLarge),
             const SizedBox(height: CSizes.sm),
             Text(notification.message.notification?.body ?? ''),
             const SizedBox(height: CSizes.md),
-            Text(
-              'Date of Pickup',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(height: CSizes.sm),
-            Text(notification.message.data['dop'] ?? ''),
-            const SizedBox(height: CSizes.md),
-            Text(
-              'Time of Pickup',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(height: CSizes.sm),
-            Text(notification.message.data['top'] ?? ''),
-            const SizedBox(height: CSizes.sm),
-            Text(
-              'Decline Reason',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(height: CSizes.sm),
-            Text(notification.message.data['declineReason'] ?? ''),
+            notification.message.notification!.title!.contains('Accepted')
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Date of Pickup',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      const SizedBox(height: CSizes.sm),
+                      Text(notification.message.data['dop'] ?? ''),
+                      const SizedBox(height: CSizes.md),
+                      Text(
+                        'Time of Pickup',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      const SizedBox(height: CSizes.sm),
+                      Text(notification.message.data['top'] ?? ''),
+                      const SizedBox(height: CSizes.sm),
+                    ],
+                  )
+                : notification.message.notification!.title!.contains('Declined')
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Decline Reason',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          const SizedBox(height: CSizes.sm),
+                          Text(
+                              notification.message.data['declineReason'] ?? ''),
+                        ],
+                      )
+                    : const SizedBox.shrink()
           ],
         ),
       ),

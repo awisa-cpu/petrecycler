@@ -36,7 +36,8 @@ class CustomRequestTabsGenerally extends StatelessWidget {
                       request.status == CTexts.pending
                           ? controller.showRequestPendingInfoDialog(request)
                           : request.status == CTexts.accepted
-                              ? controller.showRequestAcceptInfoDialog(request)
+                              ? controller
+                                  .showRequestAcceptedInfoDialog(request)
                               : null;
                     },
                     child: CustomRequestWidget(request: request),

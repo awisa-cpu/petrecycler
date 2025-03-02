@@ -76,7 +76,7 @@ class CustomAcceptRequestsDetails extends StatelessWidget {
                   child: CustomEButton(
                     onPressed: () {
                       Navigator.of(context).pop();
-                      notificationController.adminReplyToRequest(
+                      notificationController.adminReplyToCompleteRequest(
                         request,
                         "completed",
                       );

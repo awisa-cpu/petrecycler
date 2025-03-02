@@ -2,12 +2,11 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:petrecycler/common/widgets/buttons/custom_elevated_button.dart';
 import 'package:petrecycler/features/admin/admin_navigation/admin_navigation_menu.dart';
-import 'package:petrecycler/features/admin/admin_notifications_management/controllers/admin_reply_controller.dart';
 import 'package:petrecycler/features/admin/admin_notifications_management/views/admin_request_manager_view.dart';
+import 'package:petrecycler/features/admin/admin_notifications_management/views/widgets/custom_request_decline_form.dart';
 import 'package:petrecycler/features/user/user_notifications_management/model/request_model.dart';
 import 'package:petrecycler/utilities/constants/colors.dart';
 import 'package:petrecycler/utilities/constants/sizes.dart';
@@ -139,7 +138,7 @@ class AdminNotificationsController extends GetxController {
     );
   }
 
-  void showRequestAcceptInfoDialog(RequestModel request) async {
+  void showRequestAcceptedInfoDialog(RequestModel request) async {
     await showModalBottomSheet(
       backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
@@ -169,7 +168,7 @@ class AdminNotificationsController extends GetxController {
             CustomEButton(
                 onPressed: () {
                   Navigator.pop(Get.context!);
-                  verifyDeclineRequest(request);
+                  Get.to(()=>CustomDeclineRequestForm(request: request));
                 },
                 text: 'Yes',
                 addIcon: false),
@@ -177,56 +176,6 @@ class AdminNotificationsController extends GetxController {
             CustomEButton(
               onPressed: () => Navigator.of(context).pop(),
               text: 'No',
-              addIcon: false,
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void verifyDeclineRequest(RequestModel request) async {
-    final controller = Get.put(AdminReplyController());
-
-    //
-    await showDialog(
-      barrierDismissible: false,
-      context: Get.context!,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          title: const Text('Decline Response'),
-          content: const Text('Are you sure you want to decline?'),
-          actions: [
-            Form(
-              key: controller.adminDeclineKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Please provide the user with a reason for deccline',
-                      style: Theme.of(context).textTheme.bodyLarge),
-                  const SizedBox(height: CSizes.md),
-                  TextFormField(
-                    controller: controller.rejectionReason,
-                    decoration: const InputDecoration(
-                        labelText: 'Reason for rejection'),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: CSizes.lg),
-            CustomEButton(
-              onPressed: () {
-                controller.adminReplyToRequest(request, 'declined');
-                Navigator.pop(Get.context!);
-              },
-              text: 'Reply',
-              addIcon: false,
-            ),
-            const SizedBox(height: CSizes.md),
-            CustomEButton(
-              onPressed: () => Navigator.pop(Get.context!),
-              text: 'Cancel',
               addIcon: false,
             ),
           ],

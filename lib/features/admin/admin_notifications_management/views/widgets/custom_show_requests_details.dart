@@ -89,9 +89,7 @@ class CustomShowRequestsDetails extends StatelessWidget {
                   child: CustomEButton(
                     onPressed: () {
                       Navigator.pop(Get.overlayContext!);
-
                       notificationController.declineUserRequest(request);
-                      //sends message to the user that request declined
                     },
                     text: 'Decline',
                     addIcon: true,

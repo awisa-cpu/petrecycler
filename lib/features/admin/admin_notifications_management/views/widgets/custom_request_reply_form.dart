@@ -31,7 +31,7 @@ class CustomRequestReplyForm extends StatelessWidget {
       body: Obx(
         () => CustomLayoutWithScrollAndPadding(
           child: Form(
-            key: controller.replyFommKey,
+            key: controller.replyPendingFormKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -95,7 +95,7 @@ class CustomRequestReplyForm extends StatelessWidget {
                 //
                 CustomEButton(
                   onPressed: () {
-                    controller.adminReplyToRequest(request, 'accepted');
+                    controller.adminReplyToPendingRequest(request, 'accepted');
                     Navigator.of(context).pop();
                   },
                   text: 'Submit',
